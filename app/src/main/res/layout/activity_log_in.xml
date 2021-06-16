@@ -4,6 +4,7 @@
     android:layout_height="match_parent"
     android:paddingStart="8dp"
     android:paddingEnd="8dp"
+    android:id="@+id/logInContainer"
     android:orientation="vertical">
 
     <LinearLayout

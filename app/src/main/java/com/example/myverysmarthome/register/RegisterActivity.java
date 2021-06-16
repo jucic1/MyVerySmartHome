@@ -55,6 +55,3 @@ public class RegisterActivity extends AppCompatActivity {
     }
 }
 
-//        activityRegisterBinding.nameInput.setText("THIS IS TESt");
-//        activityRegisterBinding.passwordLayout.setError("layout");
-//        activityRegisterBinding.passwordInput.setError("input");

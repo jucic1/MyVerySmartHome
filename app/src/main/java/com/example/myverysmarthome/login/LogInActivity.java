@@ -26,7 +26,7 @@ public class LogInActivity extends AppCompatActivity {
                     activityLogInBinding.passwordInput.getText().toString());
         });
         activityLogInBinding.registerButton.setOnClickListener(view -> {
-            ///load another activity
+            ///load main activity
         });
 
         logInViewModel.emailValidation.observe(this, validationMessage -> {
