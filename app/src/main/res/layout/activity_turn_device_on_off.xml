@@ -15,7 +15,7 @@
         <ImageView
             android:layout_width="46dp"
             android:layout_height="46dp"
-            android:id="@+id/heartImg"
+            android:id="@+id/heartImage"
             android:src="@color/black" />
 
     </LinearLayout>
@@ -29,7 +29,7 @@
         <ImageView
             android:layout_width="46dp"
             android:layout_height="46dp"
-            android:id="@+id/deviceStateImg"
+            android:id="@+id/deviceStateImage"
             android:src="@color/black" />
 
         <TextView
