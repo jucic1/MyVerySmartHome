@@ -18,7 +18,7 @@ public class DeviceMenuAdapter extends RecyclerView.Adapter<DeviceMenuAdapter.De
 
     private ArrayList<DeviceMenuItem> devicesInMenu;
 
-    DeviceMenuAdapter(){
+    DeviceMenuAdapter() {
         devicesInMenu = new ArrayList<>(Arrays.asList(new DeviceMenuItem("Swiatło"), new DeviceMenuItem("Wtyczki"),
                 new DeviceMenuItem("Termostat"), new DeviceMenuItem("Kamery"), new DeviceMenuItem("Wszytsko")));
     }
@@ -26,8 +26,8 @@ public class DeviceMenuAdapter extends RecyclerView.Adapter<DeviceMenuAdapter.De
     @NonNull
     @Override
     public DeviceMenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_device,parent,false);
-                return new DeviceMenuViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_device_menu, parent, false);
+        return new DeviceMenuViewHolder(view);
     }
 
     @Override
@@ -40,7 +40,7 @@ public class DeviceMenuAdapter extends RecyclerView.Adapter<DeviceMenuAdapter.De
         return devicesInMenu.size();
     }
 
-    class DeviceMenuViewHolder extends  RecyclerView.ViewHolder{
+    class DeviceMenuViewHolder extends RecyclerView.ViewHolder {
         TextView titleTextView;
 
         public DeviceMenuViewHolder(@NonNull View itemView) {

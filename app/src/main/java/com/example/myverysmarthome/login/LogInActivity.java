@@ -1,11 +1,15 @@
 package com.example.myverysmarthome.login;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myverysmarthome.databinding.ActivityLogInBinding;
+import com.example.myverysmarthome.devicechangestatus.ChangeDeviceStatusActivity;
+import com.example.myverysmarthome.home.HomeActivity;
+import com.example.myverysmarthome.register.RegisterActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 public class LogInActivity extends AppCompatActivity {
@@ -26,7 +30,7 @@ public class LogInActivity extends AppCompatActivity {
                     activityLogInBinding.passwordInput.getText().toString());
         });
         activityLogInBinding.registerButton.setOnClickListener(view -> {
-            ///load main activity
+            startActivity(new Intent( LogInActivity.this, RegisterActivity.class));
         });
 
         logInViewModel.emailValidation.observe(this, validationMessage -> {
