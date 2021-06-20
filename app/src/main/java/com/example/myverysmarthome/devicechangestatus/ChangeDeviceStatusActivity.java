@@ -10,11 +10,12 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myverysmarthome.databinding.ActivityChangeDeviceStatusBinding;
 import com.example.myverysmarthome.model.ChangeableDeviceItem;
+import com.example.myverysmarthome.model.Device;
 
 public class ChangeDeviceStatusActivity extends AppCompatActivity {
     final static String EXTRA_ITEM_KEY = "extra_item_key";
 
-    public static Intent getIntent(Context context, ChangeableDeviceItem item) {
+    public static Intent getIntent(Context context, Device item) {
         Intent intent = new Intent(context, ChangeDeviceStatusActivity.class);
         intent.putExtra(EXTRA_ITEM_KEY, item);
         return intent;
@@ -30,7 +31,7 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
         setContentView(activityChangeDeviceStatusBinding.getRoot());
         changeDeviceStatusViewModel = new ViewModelProvider(this).get(ChangeDeviceStatusViewModel.class);
 
-        final ChangeableDeviceItem item = (ChangeableDeviceItem) getIntent().getSerializableExtra(EXTRA_ITEM_KEY);
+        final Device item = (Device) getIntent().getSerializableExtra(EXTRA_ITEM_KEY);
 
         activityChangeDeviceStatusBinding.deviceNameText.setText(item.getName());
         activityChangeDeviceStatusBinding.switch1.setChecked(item.getStatus());

@@ -11,13 +11,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myverysmarthome.databinding.ActivityListDevicesBinding;
 import com.example.myverysmarthome.devicechangestatus.ChangeDeviceStatusActivity;
+import com.example.myverysmarthome.model.Category;
 import com.example.myverysmarthome.model.ChangeableDeviceItem;
 import com.example.myverysmarthome.model.DeviceMenuItem;
 
 public class ListDevicesActivity extends AppCompatActivity {
     final static String MENU_ITEM_KEY = "menu_item_key";
 
-    public static Intent getIntent(Context context, DeviceMenuItem item) {
+    public static Intent getIntent(Context context, Category item) {
         Intent intent = new Intent(context, ListDevicesActivity.class);
         intent.putExtra(MENU_ITEM_KEY, item);
         return intent;

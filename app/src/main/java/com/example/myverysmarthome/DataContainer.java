@@ -33,8 +33,10 @@ public final class DataContainer {
             bedroomDevices.add(device.getUuid());
         }
         groups.add(new Group("Sypialnia", bedroomDevices));
-
+        groups.add(new Group("Sypialnia 2", bedroomDevices));
         categories.add(new Category("Swiatla", bedroomDevices));
+
+
 
         changeableDeviceItems = new ArrayList<>();
         ArrayList<ChangeableDeviceItem> bedroomDevices2 = new ArrayList<>(Arrays.asList(new ChangeableDeviceItem("Lampka 1"), new ChangeableDeviceItem("Lampka 2"),
@@ -56,7 +58,6 @@ public final class DataContainer {
         if(INSTANCE == null) {
             INSTANCE = new DataContainer();
         }
-
         return INSTANCE;
     }
 

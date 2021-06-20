@@ -9,9 +9,12 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myverysmarthome.DataContainer;
 import com.example.myverysmarthome.R;
 import com.example.myverysmarthome.model.ChangeableDeviceItem;
+import com.example.myverysmarthome.model.Device;
 import com.example.myverysmarthome.model.DeviceGroupItem;
+import com.example.myverysmarthome.model.Group;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -21,15 +24,15 @@ import java.util.List;
 
 public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsViewHolder> {
 
-    ArrayList<DeviceGroupItem> group = new ArrayList<>();
+    ArrayList<Group> group;
     private ItemCallback itemCallback;
-
 
     public GroupsAdapter(ItemCallback itemCallback) {
         this.itemCallback = itemCallback;
+        group = DataContainer.getInstance().groups;
     }
 
-    void setItems(ArrayList<DeviceGroupItem> deviceGroupItem){
+    void setItems(ArrayList<Group> deviceGroupItem){
         group.clear();
         group.addAll(deviceGroupItem);
 
@@ -66,9 +69,9 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
             recyclerView.setLayoutManager(new GridLayoutManager(itemView.getContext(),4));
             recyclerView.setAdapter(groupedDeviceAdapter);
         }
-        public void bind(DeviceGroupItem deviceGroupItem) {
-            titleTextView.setText(deviceGroupItem.getTitle());
-            groupedDeviceAdapter.setItems(deviceGroupItem.getDevicesInGroup());
+        public void bind(Group group) {
+            titleTextView.setText(group.getTitle());
+            groupedDeviceAdapter.setItems(group.getDevicesInGroup());
         }
     }
 }

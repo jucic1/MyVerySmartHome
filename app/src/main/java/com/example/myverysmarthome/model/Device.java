@@ -1,8 +1,9 @@
 package com.example.myverysmarthome.model;
 
+import java.io.Serializable;
 import java.util.UUID;
 
-public class Device {
+public class Device  implements Serializable {
     public String name;
     public Boolean status;
     public String uuid;

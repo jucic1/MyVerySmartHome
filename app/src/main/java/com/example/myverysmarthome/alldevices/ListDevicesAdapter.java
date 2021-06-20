@@ -10,18 +10,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myverysmarthome.R;
 //import com.example.myverysmarthome.home.ItemCallback;
+import com.example.myverysmarthome.model.Category;
 import com.example.myverysmarthome.model.ChangeableDeviceItem;
+import com.example.myverysmarthome.model.Device;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ListDevicesAdapter extends RecyclerView.Adapter<ListDevicesAdapter.AllDevicesViewHolder> {
 
-    private ArrayList<ChangeableDeviceItem> allDevices;
+    private ArrayList<Device> allDevices;
 
     public ListDevicesAdapter() {
-        allDevices = new ArrayList<>(Arrays.asList(new ChangeableDeviceItem("Swiatło 1"), new ChangeableDeviceItem("Swiatło 2"),
-                new ChangeableDeviceItem("Wiatrak"), new ChangeableDeviceItem("Termostat")));
+        allDevices = new ArrayList<>();
+//        allDevices = new ArrayList<>(Arrays.asList(new ChangeableDeviceItem("Swiatło 1"), new ChangeableDeviceItem("Swiatło 2"),
+//                new ChangeableDeviceItem("Wiatrak"), new ChangeableDeviceItem("Termostat")));
     }
 
     @NonNull
@@ -35,6 +38,12 @@ public class ListDevicesAdapter extends RecyclerView.Adapter<ListDevicesAdapter.
     public void onBindViewHolder(@NonNull AllDevicesViewHolder holder, int position) {
         holder.nameTextView.setText(allDevices.get(position).getName());
         holder.statusTextView.setText(allDevices.get(position).getStatus().toString());
+    }
+
+    public void setItems(ArrayList<Device> deviceItems) {
+        allDevices.clear();
+        allDevices.addAll(deviceItems);
+        notifyDataSetChanged();
     }
 
     @Override
@@ -53,22 +62,5 @@ public class ListDevicesAdapter extends RecyclerView.Adapter<ListDevicesAdapter.
         }
 
     }
-}
 
-//        public void bind(DeviceMenuItem item, MenuItemCallback itemCallback) {
-//            this.nameTextView.setText(item);
-//            this.statusTextView.setText(item.getStatus().toString());
-//
-//            itemView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View view) {
-//                    itemCallback.onItemClick(item);
-//                }
-//            });
-//        }
-//    }
-//}
-//
-//interface MenuItemCallback {
-//    void onMenuItemClick(DeviceMenuItem item);
-//}
+}

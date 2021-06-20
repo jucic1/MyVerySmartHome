@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myverysmarthome.R;
 import com.example.myverysmarthome.model.ChangeableDeviceItem;
+import com.example.myverysmarthome.model.Device;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -17,7 +18,7 @@ import java.util.List;
 
 public class GroupedDeviceAdapter extends RecyclerView.Adapter<GroupedDeviceAdapter.GroupedDeviceViewHolder> {
 
-    private ArrayList<ChangeableDeviceItem> devicesInGroup;
+    private ArrayList<Device> devicesInGroup;
     private ItemCallback itemCallback;
 
     GroupedDeviceAdapter(ItemCallback itemCallback) {
@@ -44,7 +45,7 @@ public class GroupedDeviceAdapter extends RecyclerView.Adapter<GroupedDeviceAdap
         return devicesInGroup.size();
     }
 
-    public void setItems(List<ChangeableDeviceItem> deviceItems) {
+    public void setItems(ArrayList<Device> deviceItems) {
         devicesInGroup.clear();
         devicesInGroup.addAll(deviceItems);
         notifyDataSetChanged();
@@ -60,7 +61,7 @@ public class GroupedDeviceAdapter extends RecyclerView.Adapter<GroupedDeviceAdap
             statusTextView = itemView.findViewById(R.id.deviceStatus);
         }
 
-        public void bind(ChangeableDeviceItem item, ItemCallback itemCallback) {
+        public void bind(Device item, ItemCallback itemCallback) {
             this.nameTextView.setText(item.getName());
             this.statusTextView.setText(item.getStatus().toString());
 
@@ -75,5 +76,5 @@ public class GroupedDeviceAdapter extends RecyclerView.Adapter<GroupedDeviceAdap
 }
 
 interface ItemCallback {
-    void onItemClick(ChangeableDeviceItem item);
+    void onItemClick(Device item);
 }

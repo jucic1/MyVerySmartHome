@@ -16,12 +16,12 @@ import java.util.ArrayList;
 
 public class DeviceMenuAdapter extends RecyclerView.Adapter<DeviceMenuAdapter.DeviceMenuViewHolder> {
 
-    private ArrayList<Category> devicesInMenu;
-    private DeviceMenuItemClickListener deviceMenuItemClickListener;
+    private ArrayList<Category> categoriesMenu;
+    private CategoryItemClickListener categoryItemClickListener;
 
-    DeviceMenuAdapter(DeviceMenuItemClickListener deviceMenuItemClickListener) {
-        this.deviceMenuItemClickListener = deviceMenuItemClickListener;
-        devicesInMenu = DataContainer.getInstance().categories;
+    DeviceMenuAdapter(CategoryItemClickListener categoryItemClickListener) {
+        this.categoryItemClickListener = categoryItemClickListener;
+        categoriesMenu = DataContainer.getInstance().categories;
     }
 
     @NonNull
@@ -33,12 +33,12 @@ public class DeviceMenuAdapter extends RecyclerView.Adapter<DeviceMenuAdapter.De
 
     @Override
     public void onBindViewHolder(@NonNull DeviceMenuViewHolder holder, int position) {
-        holder.bind(devicesInMenu.get(position), deviceMenuItemClickListener);
+        holder.bind(categoriesMenu.get(position), categoryItemClickListener);
     }
 
     @Override
     public int getItemCount() {
-        return devicesInMenu.size();
+        return categoriesMenu.size();
     }
 
     class DeviceMenuViewHolder extends RecyclerView.ViewHolder {
@@ -49,13 +49,14 @@ public class DeviceMenuAdapter extends RecyclerView.Adapter<DeviceMenuAdapter.De
             titleTextView = itemView.findViewById(R.id.deviceName);
         }
 
-        void bind(Category deviceMenuItem, DeviceMenuItemClickListener callback) {
-            this.titleTextView.setText(deviceMenuItem.getTitle());
-            itemView.setOnClickListener(view -> callback.onDeviceMenuItemCLick(deviceMenuItem));
+        void bind(Category category, CategoryItemClickListener categoryCallBack) {
+            this.titleTextView.setText(category.getTitle());
+            itemView.setOnClickListener(view -> categoryCallBack.categoryItemCLick(category));
+//            groupedDeviceAdapter.setItems(category.getDevicesInGroup());
         }
     }
 }
 
-interface DeviceMenuItemClickListener {
-    void onDeviceMenuItemCLick(Category deviceMenuItem);
+interface CategoryItemClickListener {
+    void categoryItemCLick(Category category);
 }

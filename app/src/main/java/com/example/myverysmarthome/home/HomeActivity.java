@@ -12,8 +12,9 @@ import com.example.myverysmarthome.DataContainer;
 import com.example.myverysmarthome.alldevices.ListDevicesActivity;
 import com.example.myverysmarthome.databinding.ActivityHomeScreenBinding;
 import com.example.myverysmarthome.devicechangestatus.ChangeDeviceStatusActivity;
+import com.example.myverysmarthome.model.Category;
 import com.example.myverysmarthome.model.ChangeableDeviceItem;
-import com.example.myverysmarthome.model.DeviceMenuItem;
+import com.example.myverysmarthome.model.Device;
 
 public class HomeActivity extends AppCompatActivity {
 
@@ -33,24 +34,22 @@ public class HomeActivity extends AppCompatActivity {
 
         recyclerViewDeviceMenu.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
 
-        deviceMenuAdapter =  new DeviceMenuAdapter(new DeviceMenuItemClickListener() {
+        deviceMenuAdapter =  new DeviceMenuAdapter(new CategoryItemClickListener() {
             @Override
-            public void onDeviceMenuItemCLick(DeviceMenuItem deviceMenuItem) {
+            public void categoryItemCLick(Category deviceMenuItem) {
                 startActivity(ListDevicesActivity.getIntent(getApplicationContext(), deviceMenuItem));
             }
         });
         recyclerViewDeviceMenu.setAdapter(deviceMenuAdapter);
 
-
         RecyclerView recyclerViewGroups = activityHomeBinding.groupsRecyclerView;
         groupsAdapter = new GroupsAdapter(new ItemCallback() {
             @Override
-            public void onItemClick(ChangeableDeviceItem item) {
-                Log.d("TEST", "item clicked" + item);
+            public void onItemClick(Device item) {
+//                Log.d("TEST", "item clicked" + item);
                 startActivity(ChangeDeviceStatusActivity.getIntent(getApplicationContext(), item));
             }
         });
-        groupsAdapter.setItems(DataContainer.getInstance().changeableDeviceItems);
         recyclerViewGroups.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerViewGroups.setAdapter(groupsAdapter);
     }
