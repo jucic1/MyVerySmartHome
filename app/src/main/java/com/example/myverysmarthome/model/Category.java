@@ -1,16 +1,23 @@
 package com.example.myverysmarthome.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Category {
+public class Category implements Serializable {
     String title;
-    ArrayList<Device> devicesInCategory;
+    ArrayList<String> devicesInCategory;
+
+    public Category(String title, ArrayList<String> bedroomDevices) {
+        this.title = title;
+        this.devicesInCategory = bedroomDevices;
+    }
 
     public Category(String title) {
         this.title = title;
         this.devicesInCategory = new ArrayList<>();
     }
-    public void addDevice(Device device) {
+
+    public void addDevice(String device) {
         devicesInCategory.add(device);
     }
 
@@ -18,7 +25,7 @@ public class Category {
         return title;
     }
 
-    public ArrayList<Device> getDevicesInCategory() {
+    public ArrayList<String> getDevicesInCategory() {
         return devicesInCategory;
     }
 }

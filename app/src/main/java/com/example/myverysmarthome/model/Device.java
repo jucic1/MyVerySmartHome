@@ -24,4 +24,8 @@ public class Device {
     public void setStatus(Boolean status) {
         this.status = status;
     }
+
+    public String getUuid() {
+        return uuid;
+    }
 }

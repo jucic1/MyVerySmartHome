@@ -8,21 +8,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myverysmarthome.DataContainer;
 import com.example.myverysmarthome.R;
-import com.example.myverysmarthome.model.DeviceMenuItem;
+import com.example.myverysmarthome.model.Category;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class DeviceMenuAdapter extends RecyclerView.Adapter<DeviceMenuAdapter.DeviceMenuViewHolder> {
 
-    private ArrayList<DeviceMenuItem> devicesInMenu;
+    private ArrayList<Category> devicesInMenu;
     private DeviceMenuItemClickListener deviceMenuItemClickListener;
 
     DeviceMenuAdapter(DeviceMenuItemClickListener deviceMenuItemClickListener) {
         this.deviceMenuItemClickListener = deviceMenuItemClickListener;
-        devicesInMenu = new ArrayList<>(Arrays.asList(new DeviceMenuItem("Swiatło"), new DeviceMenuItem("Wtyczki"),
-                new DeviceMenuItem("Termostat"), new DeviceMenuItem("Kamery"), new DeviceMenuItem("Wszytsko")));
+        devicesInMenu = DataContainer.getInstance().categories;
     }
 
     @NonNull
@@ -50,14 +49,13 @@ public class DeviceMenuAdapter extends RecyclerView.Adapter<DeviceMenuAdapter.De
             titleTextView = itemView.findViewById(R.id.deviceName);
         }
 
-        void bind(DeviceMenuItem deviceMenuItem, DeviceMenuItemClickListener callback) {
+        void bind(Category deviceMenuItem, DeviceMenuItemClickListener callback) {
             this.titleTextView.setText(deviceMenuItem.getTitle());
-
             itemView.setOnClickListener(view -> callback.onDeviceMenuItemCLick(deviceMenuItem));
         }
     }
 }
 
 interface DeviceMenuItemClickListener {
-    void onDeviceMenuItemCLick(DeviceMenuItem deviceMenuItem);
+    void onDeviceMenuItemCLick(Category deviceMenuItem);
 }
