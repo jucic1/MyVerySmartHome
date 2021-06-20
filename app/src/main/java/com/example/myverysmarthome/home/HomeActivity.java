@@ -1,19 +1,16 @@
 package com.example.myverysmarthome.home;
 
 import android.os.Bundle;
-import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.myverysmarthome.DataContainer;
 import com.example.myverysmarthome.alldevices.ListDevicesActivity;
 import com.example.myverysmarthome.databinding.ActivityHomeScreenBinding;
 import com.example.myverysmarthome.devicechangestatus.ChangeDeviceStatusActivity;
 import com.example.myverysmarthome.model.Category;
-import com.example.myverysmarthome.model.ChangeableDeviceItem;
 import com.example.myverysmarthome.model.Device;
 
 public class HomeActivity extends AppCompatActivity {
@@ -43,10 +40,9 @@ public class HomeActivity extends AppCompatActivity {
         recyclerViewDeviceMenu.setAdapter(deviceMenuAdapter);
 
         RecyclerView recyclerViewGroups = activityHomeBinding.groupsRecyclerView;
-        groupsAdapter = new GroupsAdapter(new ItemCallback() {
+        groupsAdapter = new GroupsAdapter(new GroupedDeviceCallBack() {
             @Override
             public void onItemClick(Device item) {
-//                Log.d("TEST", "item clicked" + item);
                 startActivity(ChangeDeviceStatusActivity.getIntent(getApplicationContext(), item));
             }
         });

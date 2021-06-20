@@ -11,24 +11,17 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myverysmarthome.DataContainer;
 import com.example.myverysmarthome.R;
-import com.example.myverysmarthome.model.ChangeableDeviceItem;
-import com.example.myverysmarthome.model.Device;
-import com.example.myverysmarthome.model.DeviceGroupItem;
 import com.example.myverysmarthome.model.Group;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.LinkedHashMap;
-import java.util.List;
 
 public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsViewHolder> {
 
     ArrayList<Group> group;
-    private ItemCallback itemCallback;
+    private GroupedDeviceCallBack groupedDeviceCallBack;
 
-    public GroupsAdapter(ItemCallback itemCallback) {
-        this.itemCallback = itemCallback;
+    public GroupsAdapter(GroupedDeviceCallBack groupedDeviceCallBack) {
+        this.groupedDeviceCallBack = groupedDeviceCallBack;
         group = DataContainer.getInstance().groups;
     }
 
@@ -43,7 +36,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
     @Override
     public GroupsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_group,parent,false);
-        return new GroupsViewHolder(view, itemCallback);
+        return new GroupsViewHolder(view, groupedDeviceCallBack);
     }
 
     @Override
@@ -61,9 +54,9 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
         RecyclerView recyclerView;
         GroupedDeviceAdapter groupedDeviceAdapter;
 
-        public GroupsViewHolder(@NonNull View itemView, ItemCallback itemCallback) {
+        public GroupsViewHolder(@NonNull View itemView, GroupedDeviceCallBack groupedDeviceCallBack) {
             super(itemView);
-            groupedDeviceAdapter = new GroupedDeviceAdapter(itemCallback);
+            groupedDeviceAdapter = new GroupedDeviceAdapter(groupedDeviceCallBack);
             recyclerView = itemView.findViewById(R.id.groupRecyclerView);
             titleTextView = itemView.findViewById(R.id.title);
             recyclerView.setLayoutManager(new GridLayoutManager(itemView.getContext(),4));

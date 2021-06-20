@@ -9,23 +9,18 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myverysmarthome.R;
-import com.example.myverysmarthome.model.ChangeableDeviceItem;
 import com.example.myverysmarthome.model.Device;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
 public class GroupedDeviceAdapter extends RecyclerView.Adapter<GroupedDeviceAdapter.GroupedDeviceViewHolder> {
 
     private ArrayList<Device> devicesInGroup;
-    private ItemCallback itemCallback;
+    private GroupedDeviceCallBack groupedDeviceCallBack;
 
-    GroupedDeviceAdapter(ItemCallback itemCallback) {
-        this.itemCallback = itemCallback;
+    GroupedDeviceAdapter(GroupedDeviceCallBack groupedDeviceCallBack) {
+        this.groupedDeviceCallBack = groupedDeviceCallBack;
         devicesInGroup = new ArrayList<>();
-//        devicesInGroup = new ArrayList<>(Arrays.asList(new ChangeableDeviceItem("Lampka 1"), new ChangeableDeviceItem("Lampka 2"),
-//                new ChangeableDeviceItem("Gorne"), new ChangeableDeviceItem("Termostat"), new ChangeableDeviceItem("Wiatrak")));
     }
 
     @NonNull
@@ -37,7 +32,7 @@ public class GroupedDeviceAdapter extends RecyclerView.Adapter<GroupedDeviceAdap
 
     @Override
     public void onBindViewHolder(@NonNull GroupedDeviceViewHolder holder, int position) {
-        holder.bind(devicesInGroup.get(position), itemCallback);
+        holder.bind(devicesInGroup.get(position), groupedDeviceCallBack);
     }
 
     @Override
@@ -61,7 +56,7 @@ public class GroupedDeviceAdapter extends RecyclerView.Adapter<GroupedDeviceAdap
             statusTextView = itemView.findViewById(R.id.deviceStatus);
         }
 
-        public void bind(Device item, ItemCallback itemCallback) {
+        public void bind(Device item, GroupedDeviceCallBack itemCallback) {
             this.nameTextView.setText(item.getName());
             this.statusTextView.setText(item.getStatus().toString());
 
@@ -75,6 +70,6 @@ public class GroupedDeviceAdapter extends RecyclerView.Adapter<GroupedDeviceAdap
     }
 }
 
-interface ItemCallback {
+interface GroupedDeviceCallBack {
     void onItemClick(Device item);
 }
