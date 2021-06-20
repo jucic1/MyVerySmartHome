@@ -21,16 +21,19 @@ import java.util.List;
 
 public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsViewHolder> {
 
-    ArrayList<DeviceGroupItem> group;
+    ArrayList<DeviceGroupItem> group = new ArrayList<>();
     private ItemCallback itemCallback;
+
 
     public GroupsAdapter(ItemCallback itemCallback) {
         this.itemCallback = itemCallback;
-        group = new ArrayList<>();
-        ArrayList<ChangeableDeviceItem> bedroomDevices = new ArrayList<>(Arrays.asList(new ChangeableDeviceItem("Lampka 1"), new ChangeableDeviceItem("Lampka 2"),
-                new ChangeableDeviceItem("Górne"), new ChangeableDeviceItem("Wiatrak"), new ChangeableDeviceItem("Termostat")));
-        group.add(new DeviceGroupItem("Sypialnia", bedroomDevices));
-        group.add(new DeviceGroupItem("Sypialnia 2", bedroomDevices));
+    }
+
+    void setItems(ArrayList<DeviceGroupItem> deviceGroupItem){
+        group.clear();
+        group.addAll(deviceGroupItem);
+
+        notifyDataSetChanged();
     }
 
     @NonNull

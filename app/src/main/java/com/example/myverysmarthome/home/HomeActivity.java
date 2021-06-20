@@ -8,6 +8,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myverysmarthome.DataContainer;
 import com.example.myverysmarthome.alldevices.ListDevicesActivity;
 import com.example.myverysmarthome.databinding.ActivityHomeScreenBinding;
 import com.example.myverysmarthome.devicechangestatus.ChangeDeviceStatusActivity;
@@ -19,7 +20,7 @@ public class HomeActivity extends AppCompatActivity {
     ActivityHomeScreenBinding activityHomeBinding;
     HomeViewModel homeViewModel;
 
-    DeviceMenuAdapter deviceMenuAdapter = new DeviceMenuAdapter();
+    DeviceMenuAdapter deviceMenuAdapter;
     GroupsAdapter groupsAdapter;
 
     @Override
@@ -31,19 +32,17 @@ public class HomeActivity extends AppCompatActivity {
         RecyclerView recyclerViewDeviceMenu = activityHomeBinding.deviceMenuRecyclerView;
 
         recyclerViewDeviceMenu.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-        recyclerViewDeviceMenu.setAdapter(deviceMenuAdapter);
 
-//        deviceMenuAdapter =  new DeviceMenuAdapter(new ItemCallback() {
-//            @Override
-//            public void onMenuItemClick(DeviceMenuItem item) {
-//                Log.d("TEST", "menuitem clicked" + item);
-//                startActivity(ListDevicesActivity.getIntent(getApplicationContext(), item));
-//            }
-//        });
+        deviceMenuAdapter =  new DeviceMenuAdapter(new DeviceMenuItemClickListener() {
+            @Override
+            public void onDeviceMenuItemCLick(DeviceMenuItem deviceMenuItem) {
+                startActivity(ListDevicesActivity.getIntent(getApplicationContext(), deviceMenuItem));
+            }
+        });
+        recyclerViewDeviceMenu.setAdapter(deviceMenuAdapter);
 
 
         RecyclerView recyclerViewGroups = activityHomeBinding.groupsRecyclerView;
-
         groupsAdapter = new GroupsAdapter(new ItemCallback() {
             @Override
             public void onItemClick(ChangeableDeviceItem item) {
@@ -51,8 +50,8 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(ChangeDeviceStatusActivity.getIntent(getApplicationContext(), item));
             }
         });
+        groupsAdapter.setItems(DataContainer.getInstance().changeableDeviceItems);
         recyclerViewGroups.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerViewGroups.setAdapter(groupsAdapter);
-
     }
 }

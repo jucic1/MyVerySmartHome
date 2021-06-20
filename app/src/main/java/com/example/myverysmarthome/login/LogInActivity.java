@@ -42,8 +42,11 @@ public class LogInActivity extends AppCompatActivity {
         logInViewModel.errorMessage.observe(this, errorMessage -> {
             Snackbar.make(activityLogInBinding.getRoot(),errorMessage, Snackbar.LENGTH_LONG).show();
         });
-        logInViewModel.navigateToHome.observe(this, validationMessage -> {
-            //fill this out
+        logInViewModel.navigateToHome.observe(this, navigateToHome -> {
+            if(navigateToHome) {
+                startActivity(new Intent( LogInActivity.this, HomeActivity.class));
+                finish();
+            }
         });
     }
 }

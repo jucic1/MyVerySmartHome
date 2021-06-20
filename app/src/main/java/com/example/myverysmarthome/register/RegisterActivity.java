@@ -1,15 +1,16 @@
 package com.example.myverysmarthome.register;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.example.myverysmarthome.R;
+import com.example.myverysmarthome.DataContainer;
 import com.example.myverysmarthome.databinding.ActivityRegisterBinding;
+import com.example.myverysmarthome.home.HomeActivity;
+import com.example.myverysmarthome.login.LogInActivity;
+import com.example.myverysmarthome.model.User;
 import com.google.android.material.snackbar.Snackbar;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -49,9 +50,15 @@ public class RegisterActivity extends AppCompatActivity {
         registerViewModel.errorMessage.observe(this, errorMessage -> {
             Snackbar.make(activityRegisterBinding.getRoot(),errorMessage, Snackbar.LENGTH_LONG).show();
         });
-        registerViewModel.navigateToHome.observe(this, validationMessage -> {
-            //fill this out
+        registerViewModel.navigateToHome.observe(this, navigateToHome -> {
+            if(navigateToHome) {
+                startActivity(new Intent( RegisterActivity.this, HomeActivity.class));
+                finish();
+            }
         });
+
+
+
     }
 }
 

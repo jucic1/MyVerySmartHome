@@ -17,8 +17,10 @@ import java.util.Arrays;
 public class DeviceMenuAdapter extends RecyclerView.Adapter<DeviceMenuAdapter.DeviceMenuViewHolder> {
 
     private ArrayList<DeviceMenuItem> devicesInMenu;
+    private DeviceMenuItemClickListener deviceMenuItemClickListener;
 
-    DeviceMenuAdapter() {
+    DeviceMenuAdapter(DeviceMenuItemClickListener deviceMenuItemClickListener) {
+        this.deviceMenuItemClickListener = deviceMenuItemClickListener;
         devicesInMenu = new ArrayList<>(Arrays.asList(new DeviceMenuItem("Swiatło"), new DeviceMenuItem("Wtyczki"),
                 new DeviceMenuItem("Termostat"), new DeviceMenuItem("Kamery"), new DeviceMenuItem("Wszytsko")));
     }
@@ -32,7 +34,7 @@ public class DeviceMenuAdapter extends RecyclerView.Adapter<DeviceMenuAdapter.De
 
     @Override
     public void onBindViewHolder(@NonNull DeviceMenuViewHolder holder, int position) {
-        holder.titleTextView.setText(devicesInMenu.get(position).title);
+        holder.bind(devicesInMenu.get(position), deviceMenuItemClickListener);
     }
 
     @Override
@@ -47,5 +49,15 @@ public class DeviceMenuAdapter extends RecyclerView.Adapter<DeviceMenuAdapter.De
             super(itemView);
             titleTextView = itemView.findViewById(R.id.deviceName);
         }
+
+        void bind(DeviceMenuItem deviceMenuItem, DeviceMenuItemClickListener callback) {
+            this.titleTextView.setText(deviceMenuItem.getTitle());
+
+            itemView.setOnClickListener(view -> callback.onDeviceMenuItemCLick(deviceMenuItem));
+        }
     }
+}
+
+interface DeviceMenuItemClickListener {
+    void onDeviceMenuItemCLick(DeviceMenuItem deviceMenuItem);
 }

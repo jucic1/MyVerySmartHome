@@ -18,7 +18,7 @@ public class ListDevicesActivity extends AppCompatActivity {
     final static String MENU_ITEM_KEY = "menu_item_key";
 
     public static Intent getIntent(Context context, DeviceMenuItem item) {
-        Intent intent = new Intent(context, ChangeDeviceStatusActivity.class);
+        Intent intent = new Intent(context, ListDevicesActivity.class);
         intent.putExtra(MENU_ITEM_KEY, item);
         return intent;
     }
