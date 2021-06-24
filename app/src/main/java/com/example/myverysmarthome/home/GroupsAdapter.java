@@ -28,7 +28,10 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
     void setItems(ArrayList<Group> deviceGroupItem){
         group.clear();
         group.addAll(deviceGroupItem);
+        notifyDataSetChanged();
+    }
 
+    void refresh(){
         notifyDataSetChanged();
     }
 
@@ -53,6 +56,7 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
         TextView titleTextView;
         RecyclerView recyclerView;
         GroupedDeviceAdapter groupedDeviceAdapter;
+        TextView deleteTextView;
 
         public GroupsViewHolder(@NonNull View itemView, GroupedDeviceCallBack groupedDeviceCallBack) {
             super(itemView);
@@ -61,10 +65,16 @@ public class GroupsAdapter extends RecyclerView.Adapter<GroupsAdapter.GroupsView
             titleTextView = itemView.findViewById(R.id.title);
             recyclerView.setLayoutManager(new GridLayoutManager(itemView.getContext(),4));
             recyclerView.setAdapter(groupedDeviceAdapter);
+            deleteTextView = itemView.findViewById(R.id.deleteTextView);
         }
         public void bind(Group group) {
             titleTextView.setText(group.getTitle());
             groupedDeviceAdapter.setItems(group.getDevicesInGroup());
+
+            deleteTextView.setOnClickListener(view -> {
+               DataContainer.getInstance().removeGroup(group);
+               notifyDataSetChanged();
+            });
         }
     }
 }

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myverysmarthome.DataContainer;
 import com.example.myverysmarthome.R;
+import com.example.myverysmarthome.alldevices.ListDevicesAdapter;
 import com.example.myverysmarthome.model.Category;
 
 import java.util.ArrayList;
@@ -21,7 +22,14 @@ public class DeviceMenuAdapter extends RecyclerView.Adapter<DeviceMenuAdapter.De
 
     DeviceMenuAdapter(CategoryItemClickListener categoryItemClickListener) {
         this.categoryItemClickListener = categoryItemClickListener;
-        categoriesMenu = DataContainer.getInstance().categories;
+        categoriesMenu = new ArrayList<>();
+//        categoriesMenu = DataContainer.getInstance().categories;
+    }
+
+    public void setItems(ArrayList<Category> categoriesMenu) {
+        this.categoriesMenu.clear();
+        this.categoriesMenu.addAll(categoriesMenu);
+        notifyDataSetChanged();
     }
 
     @NonNull
@@ -52,7 +60,6 @@ public class DeviceMenuAdapter extends RecyclerView.Adapter<DeviceMenuAdapter.De
         void bind(Category category, CategoryItemClickListener categoryCallBack) {
             this.titleTextView.setText(category.getTitle());
             itemView.setOnClickListener(view -> categoryCallBack.categoryItemCLick(category));
-//            groupedDeviceAdapter.setItems(category.getDevicesInGroup());
         }
     }
 }

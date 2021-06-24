@@ -54,18 +54,16 @@ public class GroupedDeviceAdapter extends RecyclerView.Adapter<GroupedDeviceAdap
             super(itemView);
             nameTextView = itemView.findViewById(R.id.deviceName);
             statusTextView = itemView.findViewById(R.id.deviceStatus);
+
         }
 
         public void bind(Device item, GroupedDeviceCallBack itemCallback) {
             this.nameTextView.setText(item.getName());
             this.statusTextView.setText(item.getStatus().toString());
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    itemCallback.onItemClick(item);
-                }
-            });
+            itemView.setOnClickListener(view -> itemCallback.onItemClick(item));
+
+
         }
     }
 }

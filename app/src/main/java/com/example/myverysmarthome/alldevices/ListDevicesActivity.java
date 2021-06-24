@@ -10,10 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myverysmarthome.databinding.ActivityListDevicesBinding;
-import com.example.myverysmarthome.devicechangestatus.ChangeDeviceStatusActivity;
 import com.example.myverysmarthome.model.Category;
-import com.example.myverysmarthome.model.ChangeableDeviceItem;
-import com.example.myverysmarthome.model.DeviceMenuItem;
 
 public class ListDevicesActivity extends AppCompatActivity {
     final static String MENU_ITEM_KEY = "menu_item_key";
@@ -27,7 +24,8 @@ public class ListDevicesActivity extends AppCompatActivity {
     ActivityListDevicesBinding activityListDevicesBinding;
     ListDevicesViewModel listDevicesViewModel;
 
-    ListDevicesAdapter listDevicesAdapter = new ListDevicesAdapter();
+    ListDevicesAdapter listDevicesAdapter;
+    Category category;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,6 +37,13 @@ public class ListDevicesActivity extends AppCompatActivity {
         RecyclerView recyclerViewAllDevices = activityListDevicesBinding.allDevicesRecyclerView;
 
         recyclerViewAllDevices.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        listDevicesAdapter = new ListDevicesAdapter(() ->
+                listDevicesAdapter.setItems(category.getDevicesInGroup()));
         recyclerViewAllDevices.setAdapter(listDevicesAdapter);
+
+        category = (Category) getIntent().getSerializableExtra(MENU_ITEM_KEY);
+
+
+        listDevicesAdapter.setItems(category.getDevicesInGroup());
     }
 }

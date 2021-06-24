@@ -9,7 +9,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myverysmarthome.databinding.ActivityChangeDeviceStatusBinding;
-import com.example.myverysmarthome.model.ChangeableDeviceItem;
 import com.example.myverysmarthome.model.Device;
 
 public class ChangeDeviceStatusActivity extends AppCompatActivity {
@@ -39,8 +38,13 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
         activityChangeDeviceStatusBinding.switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean status) {
-                changeDeviceStatusViewModel.statusChange(status);
+                changeDeviceStatusViewModel.statusChange(item.uuid, status);
             }
+        });
+
+        activityChangeDeviceStatusBinding.forgetDevice.setOnClickListener(view -> {
+
+
         });
     }
 

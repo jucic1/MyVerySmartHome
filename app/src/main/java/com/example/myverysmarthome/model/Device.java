@@ -29,4 +29,6 @@ public class Device  implements Serializable {
     public String getUuid() {
         return uuid;
     }
+
+
 }

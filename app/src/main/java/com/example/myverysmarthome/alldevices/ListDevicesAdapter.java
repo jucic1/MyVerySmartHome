@@ -8,23 +8,22 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myverysmarthome.DataContainer;
 import com.example.myverysmarthome.R;
-//import com.example.myverysmarthome.home.ItemCallback;
-import com.example.myverysmarthome.model.Category;
-import com.example.myverysmarthome.model.ChangeableDeviceItem;
 import com.example.myverysmarthome.model.Device;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ListDevicesAdapter extends RecyclerView.Adapter<ListDevicesAdapter.AllDevicesViewHolder> {
 
     private ArrayList<Device> allDevices;
+    ListDevicesCallBack listDevicesCallBack;
 
-    public ListDevicesAdapter() {
+    public ListDevicesAdapter(ListDevicesCallBack listDevicesCallBack) {
         allDevices = new ArrayList<>();
-//        allDevices = new ArrayList<>(Arrays.asList(new ChangeableDeviceItem("Swiatło 1"), new ChangeableDeviceItem("Swiatło 2"),
-//                new ChangeableDeviceItem("Wiatrak"), new ChangeableDeviceItem("Termostat")));
+        this.listDevicesCallBack = listDevicesCallBack;
+//        allDevices = new ArrayList<>(Arrays.asList(new Device("Swiatło 1"), new Device("Swiatło 2"),
+//                new Device("Wiatrak"), new Device("Termostat")));
     }
 
     @NonNull
@@ -36,8 +35,7 @@ public class ListDevicesAdapter extends RecyclerView.Adapter<ListDevicesAdapter.
 
     @Override
     public void onBindViewHolder(@NonNull AllDevicesViewHolder holder, int position) {
-        holder.nameTextView.setText(allDevices.get(position).getName());
-        holder.statusTextView.setText(allDevices.get(position).getStatus().toString());
+        holder.bind(allDevices.get(position), listDevicesCallBack);
     }
 
     public void setItems(ArrayList<Device> deviceItems) {
@@ -61,6 +59,17 @@ public class ListDevicesAdapter extends RecyclerView.Adapter<ListDevicesAdapter.
             statusTextView = itemView.findViewById(R.id.deviceStatus);
         }
 
+        void bind(Device device, ListDevicesCallBack listDevicesCallBack) {
+            this.nameTextView.setText(device.getName());
+            this.statusTextView.setText(device.getStatus().toString());
+            statusTextView.setOnClickListener(view -> {
+                DataContainer.getInstance().getDevice(device.uuid).setStatus(!device.status);
+                listDevicesCallBack.onItemClick();
+            });
+        }
     }
 
+}
+interface ListDevicesCallBack {
+    void onItemClick();
 }
