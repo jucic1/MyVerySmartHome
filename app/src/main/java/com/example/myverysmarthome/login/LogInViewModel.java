@@ -42,21 +42,19 @@ public class LogInViewModel extends ViewModel {
     }
 
     private boolean isValid(String email, String password) {
-        boolean isValidated = true;
-
         if (email.isEmpty()) {
             emailValidation.setValue("Your email cannot be empty");
-            isValidated = false;
+            return false;
         }
         if (password.isEmpty()) {
             passwordValidation.setValue("Your password cannot be empty");
-            isValidated = false;
+            return false;
         }
         if (!email.isEmpty() && !isValidEmail(email)) {
             emailValidation.setValue("Email in wrong format. Correct one: xx@xx.x");
-            isValidated = false;
+            return false;
         }
-        return isValidated;
+        return true;
     }
 
     private boolean isValidEmail(String email) {

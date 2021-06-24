@@ -1,5 +1,6 @@
 package com.example.myverysmarthome.addgroup;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -8,6 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myverysmarthome.databinding.ActivityCreateGroupBinding;
+import com.example.myverysmarthome.home.HomeActivity;
+import com.example.myverysmarthome.login.LogInActivity;
 
 public class AddGroupActivity extends AppCompatActivity {
     ActivityCreateGroupBinding activityCreateGroupBinding;
@@ -28,5 +31,21 @@ public class AddGroupActivity extends AppCompatActivity {
         recyclerViewAllDevices.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         addGroupAdapter = new AddGroupAdapter();
         recyclerViewAllDevices.setAdapter(addGroupAdapter);
+
+        addGroupViewModel.groupNameValidation.observe(this, validationMessage -> {
+            activityCreateGroupBinding.nameLayout.setError(validationMessage);
+        });
+
+        addGroupViewModel.createGroup.observe(this, createGroup -> {
+            if(createGroup) {
+                startActivity(new Intent( AddGroupActivity.this, HomeActivity.class));
+                finish();
+            }
+        });
+
+        activityCreateGroupBinding.createButton.setOnClickListener(view -> {
+            addGroupViewModel.createGroup(activityCreateGroupBinding.nameInput.getText().toString());
+        });
+
     }
 }

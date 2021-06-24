@@ -8,18 +8,17 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myverysmarthome.DataContainer;
 import com.example.myverysmarthome.R;
 import com.example.myverysmarthome.model.Device;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class AddGroupAdapter extends RecyclerView.Adapter<AddGroupAdapter.AddGroupViewHolder> {
     private ArrayList<Device> allDevices;
 
     public AddGroupAdapter() {
-        allDevices = new ArrayList<>(Arrays.asList(new Device("Swiatło 1"), new Device("Swiatło 2"),
-                new Device("Wiatrak"), new Device("Termostat")));
+        allDevices = DataContainer.getInstance().devices;
     }
 
     public void setItems(ArrayList<Device> deviceItems) {

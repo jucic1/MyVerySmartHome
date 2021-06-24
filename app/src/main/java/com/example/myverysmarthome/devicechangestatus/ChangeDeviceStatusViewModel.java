@@ -9,4 +9,8 @@ public class ChangeDeviceStatusViewModel extends ViewModel {
     public void statusChange(String uuid, boolean status) {
         DataContainer.getInstance().getDevice(uuid).setStatus(status);
     }
+
+    public void removeItem(Device device) {
+        DataContainer.getInstance().devices.remove(device);
+    }
 }

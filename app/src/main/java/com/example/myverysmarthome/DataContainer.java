@@ -43,6 +43,9 @@ public final class DataContainer {
         return null;
     }
 
+    public void removeDevice(Device device){
+        devices.remove(device);
+    }
 
     public void removeGroup(Group group){
         groups.remove(group);

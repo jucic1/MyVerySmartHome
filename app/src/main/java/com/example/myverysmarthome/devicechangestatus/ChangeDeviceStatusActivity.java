@@ -8,6 +8,7 @@ import android.widget.CompoundButton;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.myverysmarthome.DataContainer;
 import com.example.myverysmarthome.databinding.ActivityChangeDeviceStatusBinding;
 import com.example.myverysmarthome.model.Device;
 
@@ -43,8 +44,7 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
         });
 
         activityChangeDeviceStatusBinding.forgetDevice.setOnClickListener(view -> {
-
-
+//            changeDeviceStatusViewModel.removeItem(item);
         });
     }
 
