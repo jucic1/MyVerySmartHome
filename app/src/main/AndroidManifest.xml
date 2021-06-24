@@ -18,6 +18,7 @@
         <activity android:name=".register.RegisterActivity"/>
         <activity android:name=".alldevices.ListDevicesActivity"/>
         <activity android:name=".addgroup.AddGroupActivity"/>
+        <activity android:name=".configuredevice.ConfigureDeviceActivity"/>
         <activity android:name=".devicechangestatus.ChangeDeviceStatusActivity"/>
     </application>
 

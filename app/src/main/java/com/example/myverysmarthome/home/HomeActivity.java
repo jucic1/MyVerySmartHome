@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.myverysmarthome.DataContainer;
 import com.example.myverysmarthome.addgroup.AddGroupActivity;
 import com.example.myverysmarthome.alldevices.ListDevicesActivity;
+import com.example.myverysmarthome.configuredevice.ConfigureDeviceActivity;
 import com.example.myverysmarthome.databinding.ActivityHomeScreenBinding;
 import com.example.myverysmarthome.devicechangestatus.ChangeDeviceStatusActivity;
 import com.example.myverysmarthome.login.LogInActivity;
@@ -61,7 +62,7 @@ public class HomeActivity extends AppCompatActivity {
         recyclerViewGroups.setAdapter(groupsAdapter);
 
         activityHomeBinding.addDeviceImage.setOnClickListener(view -> {
-
+            startActivity(new Intent( HomeActivity.this, ConfigureDeviceActivity.class));
         });
         activityHomeBinding.addGroupImage.setOnClickListener(view -> {
             startActivity(new Intent( HomeActivity.this, AddGroupActivity.class));

@@ -4,19 +4,16 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myverysmarthome.databinding.ActivityCreateGroupBinding;
-import com.example.myverysmarthome.databinding.ActivityHomeScreenBinding;
-import com.example.myverysmarthome.databinding.ActivityLogInBinding;
-import com.example.myverysmarthome.home.DeviceMenuAdapter;
-import com.example.myverysmarthome.home.GroupsAdapter;
-import com.example.myverysmarthome.home.HomeViewModel;
-import com.example.myverysmarthome.login.LogInViewModel;
 
 public class AddGroupActivity extends AppCompatActivity {
     ActivityCreateGroupBinding activityCreateGroupBinding;
     AddGroupViewModel addGroupViewModel;
+
+    AddGroupAdapter addGroupAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,5 +22,11 @@ public class AddGroupActivity extends AppCompatActivity {
         setContentView(activityCreateGroupBinding.getRoot());
 
         addGroupViewModel = new ViewModelProvider(this).get(AddGroupViewModel.class);
+
+        RecyclerView recyclerViewAllDevices = activityCreateGroupBinding.listDevicesRecyclerView;
+
+        recyclerViewAllDevices.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        addGroupAdapter = new AddGroupAdapter();
+        recyclerViewAllDevices.setAdapter(addGroupAdapter);
     }
 }

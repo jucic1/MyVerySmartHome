@@ -22,8 +22,6 @@ public class ListDevicesAdapter extends RecyclerView.Adapter<ListDevicesAdapter.
     public ListDevicesAdapter(ListDevicesCallBack listDevicesCallBack) {
         allDevices = new ArrayList<>();
         this.listDevicesCallBack = listDevicesCallBack;
-//        allDevices = new ArrayList<>(Arrays.asList(new Device("Swiatło 1"), new Device("Swiatło 2"),
-//                new Device("Wiatrak"), new Device("Termostat")));
     }
 
     @NonNull
