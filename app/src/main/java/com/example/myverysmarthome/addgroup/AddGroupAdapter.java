@@ -3,6 +3,8 @@ package com.example.myverysmarthome.addgroup;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -16,9 +18,11 @@ import java.util.ArrayList;
 
 public class AddGroupAdapter extends RecyclerView.Adapter<AddGroupAdapter.AddGroupViewHolder> {
     private ArrayList<Device> allDevices;
+    AddGroupCallBack addGroupCallBack;
 
-    public AddGroupAdapter() {
+    public AddGroupAdapter(AddGroupCallBack addGroupCallBack) {
         allDevices = DataContainer.getInstance().devices;
+        this.addGroupCallBack = addGroupCallBack;
     }
 
     public void setItems(ArrayList<Device> deviceItems) {
@@ -36,7 +40,7 @@ public class AddGroupAdapter extends RecyclerView.Adapter<AddGroupAdapter.AddGro
 
     @Override
     public void onBindViewHolder(@NonNull AddGroupViewHolder holder, int position) {
-        holder.bind(allDevices.get(position));
+        holder.bind(allDevices.get(position), addGroupCallBack);
     }
 
     @Override
@@ -46,14 +50,31 @@ public class AddGroupAdapter extends RecyclerView.Adapter<AddGroupAdapter.AddGro
 
     class AddGroupViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;
+        CheckBox deviceCheckbox;
 
         public AddGroupViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.deviceName);
+            deviceCheckbox = itemView.findViewById(R.id.addDeviceCheckbox);
         }
 
-        void bind(Device device) {
+        void bind(Device device, AddGroupCallBack addGroupCallBack) {
             this.nameTextView.setText(device.getName());
+            deviceCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                @Override
+                public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
+                    if(isChecked){
+                        addGroupCallBack.onAddDeviceItem(device);
+                    }else{
+                        addGroupCallBack.onRemoveDeviceItem(device);
+                    }
+                }
+            });
         }
     }
+}
+
+interface AddGroupCallBack {
+    void onAddDeviceItem(Device item);
+    void onRemoveDeviceItem(Device item);
 }

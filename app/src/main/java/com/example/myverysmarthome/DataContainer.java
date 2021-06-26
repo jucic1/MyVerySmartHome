@@ -59,4 +59,24 @@ public final class DataContainer {
     }
 
 
+    public void remove(String uuid) {
+        for(Device device: devices) {
+            if(device.uuid.equals(uuid)) {
+                devices.remove(device);
+            }
+        }
+    }
+
+    public void createGroup(String name, ArrayList<Device> groupDevices) {
+        Group newGroup = new Group(name, getUuidsFromDeviceList(groupDevices));
+        groups.add(newGroup);
+    }
+
+    private ArrayList<String> getUuidsFromDeviceList(ArrayList<Device> groupDevices) {
+        ArrayList<String> result = new ArrayList<>();
+        for(Device device: groupDevices) {
+            result.add(device.getUuid());
+        }
+        return result;
+    }
 }

@@ -7,7 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myverysmarthome.databinding.ActivityLogInBinding;
-import com.example.myverysmarthome.devicechangestatus.ChangeDeviceStatusActivity;
 import com.example.myverysmarthome.home.HomeActivity;
 import com.example.myverysmarthome.register.RegisterActivity;
 import com.google.android.material.snackbar.Snackbar;

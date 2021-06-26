@@ -14,9 +14,9 @@
         android:layout_height="wrap_content"
         android:id="@+id/deviceName"/>
 
-    <ImageView
+   <CheckBox
         android:layout_width="32dp"
         android:layout_height="32dp"
-        android:id="@+id/addDeviceImage"
-        android:src="@color/black"/>
+        android:id="@+id/addDeviceCheckbox"/>
+
 </LinearLayout>

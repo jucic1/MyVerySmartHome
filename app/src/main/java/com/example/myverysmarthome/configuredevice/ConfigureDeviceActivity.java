@@ -36,5 +36,8 @@ public class ConfigureDeviceActivity extends AppCompatActivity {
         activityConfigureDeviceBinding.addDeviceButton.setOnClickListener(view -> {
             configureDeviceViewModel.configureDevice(activityConfigureDeviceBinding.nameInput.getText().toString());
         });
+
+
+
     }
 }

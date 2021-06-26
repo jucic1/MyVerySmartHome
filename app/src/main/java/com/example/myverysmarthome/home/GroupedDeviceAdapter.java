@@ -62,8 +62,6 @@ public class GroupedDeviceAdapter extends RecyclerView.Adapter<GroupedDeviceAdap
             this.statusTextView.setText(item.getStatus().toString());
 
             itemView.setOnClickListener(view -> itemCallback.onItemClick(item));
-
-
         }
     }
 }

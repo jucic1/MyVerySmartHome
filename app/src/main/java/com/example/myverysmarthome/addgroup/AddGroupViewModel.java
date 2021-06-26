@@ -4,19 +4,34 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.myverysmarthome.DataContainer;
+import com.example.myverysmarthome.model.Device;
 import com.example.myverysmarthome.model.Group;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AddGroupViewModel extends ViewModel {
 
     MutableLiveData<String> groupNameValidation = new MutableLiveData<>();
-    MutableLiveData<Boolean> createGroup = new MutableLiveData<>(false);
+    MutableLiveData<Boolean> createGroupSuccess = new MutableLiveData<>(false);
+
+    private ArrayList<Device> groupDevices = new ArrayList<>();
+
+    void addDeviceToGroup(Device device){
+        groupDevices.add(device);
+    }
+
+    void removeDeviceFromGroup(Device device){
+        groupDevices.remove(device);
+    }
 
     void createGroup(String name) {
-        if(isNameUnique(name)) {
-            createGroup.setValue(true);
+        if(isNameUnique(name) && !groupDevices.isEmpty()) {
+            DataContainer.getInstance().createGroup(name, groupDevices);
+            createGroupSuccess.setValue(true);
         }else {
             groupNameValidation.setValue("Group name already taken");
-            createGroup.setValue(false);
+            createGroupSuccess.setValue(false);
         }
     }
 

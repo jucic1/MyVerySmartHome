@@ -29,7 +29,11 @@ public class Group {
     public ArrayList<Device> getDevicesInGroup() {
         ArrayList<Device> devices = new ArrayList<>();
         for(String uuid: devicesInGroup) {
-            devices.add(DataContainer.getInstance().getDevice(uuid));
+            Device device = DataContainer.getInstance().getDevice(uuid);
+            if(device != null){
+                devices.add(device);
+            }
+            //add deleting the ids from group
         }
         return devices;
     }
