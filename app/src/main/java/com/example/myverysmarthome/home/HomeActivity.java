@@ -1,5 +1,6 @@
 package com.example.myverysmarthome.home;
 
+import android.bluetooth.BluetoothAdapter;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -30,7 +31,6 @@ public class HomeActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         groupsAdapter.refresh();
-
     }
 
     @Override
@@ -67,9 +67,7 @@ public class HomeActivity extends AppCompatActivity {
         activityHomeBinding.addGroupImage.setOnClickListener(view -> {
             startActivity(new Intent( HomeActivity.this, AddGroupActivity.class));
         });
-        activityHomeBinding.logOutTextView.setOnClickListener(view -> {
-            startActivity(new Intent( HomeActivity.this, LogInActivity.class));
-        });
+
 
     }
 }

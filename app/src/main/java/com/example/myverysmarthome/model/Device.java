@@ -4,9 +4,9 @@ import java.io.Serializable;
 import java.util.UUID;
 
 public class Device  implements Serializable {
-    public String name;
-    public Boolean status;
-    public String uuid;
+    private String name;
+    private Boolean status;
+    private String uuid;
 
     public Device(String name) {
         this.name = name;
@@ -29,6 +29,5 @@ public class Device  implements Serializable {
     public String getUuid() {
         return uuid;
     }
-
 
 }

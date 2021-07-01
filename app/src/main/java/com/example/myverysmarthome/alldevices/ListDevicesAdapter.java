@@ -61,7 +61,7 @@ public class ListDevicesAdapter extends RecyclerView.Adapter<ListDevicesAdapter.
             this.nameTextView.setText(device.getName());
             this.statusTextView.setText(device.getStatus().toString());
             statusTextView.setOnClickListener(view -> {
-                DataContainer.getInstance().getDevice(device.uuid).setStatus(!device.status);
+                DataContainer.getInstance().getDevice(device.getUuid()).setStatus(!device.getStatus());
                 listDevicesCallBack.onItemClick();
             });
         }

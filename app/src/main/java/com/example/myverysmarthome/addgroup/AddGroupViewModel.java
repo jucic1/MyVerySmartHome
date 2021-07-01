@@ -13,31 +13,46 @@ import java.util.List;
 public class AddGroupViewModel extends ViewModel {
 
     MutableLiveData<String> groupNameValidation = new MutableLiveData<>();
+    MutableLiveData<String> selectedDevicesValidation = new MutableLiveData<>();
     MutableLiveData<Boolean> createGroupSuccess = new MutableLiveData<>(false);
 
     private ArrayList<Device> groupDevices = new ArrayList<>();
 
-    void addDeviceToGroup(Device device){
+    void addDeviceToGroup(Device device) {
         groupDevices.add(device);
     }
 
-    void removeDeviceFromGroup(Device device){
+    void removeDeviceFromGroup(Device device) {
         groupDevices.remove(device);
     }
 
     void createGroup(String name) {
-        if(isNameUnique(name) && !groupDevices.isEmpty()) {
-            DataContainer.getInstance().createGroup(name, groupDevices);
-            createGroupSuccess.setValue(true);
-        }else {
-            groupNameValidation.setValue("Group name already taken");
-            createGroupSuccess.setValue(false);
+        if (isSelected(name)) {
+            if (isNameUnique(name)) {
+                DataContainer.getInstance().createGroup(name, groupDevices);
+                createGroupSuccess.setValue(true);
+            } else {
+                groupNameValidation.setValue("Group name already taken");
+                createGroupSuccess.setValue(false);
+            }
         }
     }
 
+    private boolean isSelected(String name) {
+        if (name.isEmpty()) {
+            groupNameValidation.setValue("Group name cannot be empty");
+            return false;
+        }
+        if (groupDevices.isEmpty()) {
+            selectedDevicesValidation.setValue("Select at least one device");
+            return false;
+        }
+        return true;
+    }
+
     private boolean isNameUnique(String name) {
-        for(Group group: DataContainer.getInstance().groups) {
-            if(group.getTitle().equals(name)) {
+        for (Group group : DataContainer.getInstance().groups) {
+            if (group.getTitle().equals(name)) {
                 return false;
             }
         }

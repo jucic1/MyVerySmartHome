@@ -38,7 +38,7 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
         activityChangeDeviceStatusBinding.switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean status) {
-                changeDeviceStatusViewModel.statusChange(item.uuid, status);
+                changeDeviceStatusViewModel.statusChange(item.getUuid(), status);
             }
         });
 

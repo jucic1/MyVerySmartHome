@@ -11,6 +11,6 @@ public class ChangeDeviceStatusViewModel extends ViewModel {
     }
 
     public void removeItem(Device device) {
-        DataContainer.getInstance().remove(device.getUuid());
+        DataContainer.getInstance().removeDevice(device.getUuid());
     }
 }

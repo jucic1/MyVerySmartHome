@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myverysmarthome.databinding.ActivityCreateGroupBinding;
 import com.example.myverysmarthome.model.Device;
+import com.google.android.material.snackbar.Snackbar;
 
 public class AddGroupActivity extends AppCompatActivity {
     ActivityCreateGroupBinding activityCreateGroupBinding;
@@ -44,16 +45,17 @@ public class AddGroupActivity extends AppCompatActivity {
             activityCreateGroupBinding.nameLayout.setError(validationMessage);
         });
 
+        addGroupViewModel.selectedDevicesValidation.observe(this, errorMessage -> {
+            Snackbar.make(activityCreateGroupBinding.getRoot(),errorMessage, Snackbar.LENGTH_LONG).show();
+        });
+
         addGroupViewModel.createGroupSuccess.observe(this, createGroup -> {
             if(createGroup) {
-
                 finish();
             }
         });
-
         activityCreateGroupBinding.createButton.setOnClickListener(view -> {
             addGroupViewModel.createGroup(activityCreateGroupBinding.nameInput.getText().toString());
         });
-
     }
 }

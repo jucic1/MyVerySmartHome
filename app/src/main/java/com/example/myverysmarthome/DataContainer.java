@@ -32,6 +32,7 @@ public final class DataContainer {
         groups.add(new Group("Sypialnia", bedroomDevices));
         groups.add(new Group("Sypialnia 2", bedroomDevices));
         categories.add(new Category("Swiatla", bedroomDevices));
+        categories.add(new Category("Termostaty", new ArrayList<>()));
     }
 
     public Device getDevice(String uuid) {
@@ -58,13 +59,27 @@ public final class DataContainer {
         return INSTANCE;
     }
 
-
-    public void remove(String uuid) {
+    public void removeDevice(String uuid) {
         for(Device device: devices) {
-            if(device.uuid.equals(uuid)) {
+            if(device.getUuid().equals(uuid)) {
                 devices.remove(device);
             }
         }
+    }
+
+    public ArrayList<String> getCategoriesNames(){
+        ArrayList<String> result = new ArrayList<>();
+        categories.forEach(c -> result.add(c.getTitle()));
+        return result;
+    }
+
+    public Category getCategory(String id) {
+        for(Category category: categories) {
+            if(category.getId().equals(id)) {
+                return category;
+            }
+        }
+        return null;
     }
 
     public void createGroup(String name, ArrayList<Device> groupDevices) {
@@ -74,9 +89,13 @@ public final class DataContainer {
 
     private ArrayList<String> getUuidsFromDeviceList(ArrayList<Device> groupDevices) {
         ArrayList<String> result = new ArrayList<>();
-        for(Device device: groupDevices) {
-            result.add(device.getUuid());
-        }
+        groupDevices.forEach(d -> result.add(d.getUuid()));
         return result;
+    }
+
+    public Device createDevice(String name) {
+        Device newDevice = new Device(name);
+        devices.add(newDevice);
+        return newDevice;
     }
 }

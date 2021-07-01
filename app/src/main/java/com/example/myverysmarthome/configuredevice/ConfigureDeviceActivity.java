@@ -2,12 +2,18 @@ package com.example.myverysmarthome.configuredevice;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.RadioButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.myverysmarthome.DataContainer;
 import com.example.myverysmarthome.databinding.ActivityConfigureDeviceBinding;
 import com.example.myverysmarthome.home.HomeActivity;
+import com.example.myverysmarthome.model.Category;
+import com.google.android.material.snackbar.Snackbar;
+
 
 public class ConfigureDeviceActivity extends AppCompatActivity {
 
@@ -21,6 +27,7 @@ public class ConfigureDeviceActivity extends AppCompatActivity {
         setContentView(activityConfigureDeviceBinding.getRoot());
         configureDeviceViewModel = new ViewModelProvider(this).get(ConfigureDeviceViewModel.class);
 
+        addCategoryRadioButtons();
 
         configureDeviceViewModel.deviceNameValidation.observe(this, validationMessage -> {
             activityConfigureDeviceBinding.nameLayout.setError(validationMessage);
@@ -28,16 +35,30 @@ public class ConfigureDeviceActivity extends AppCompatActivity {
 
         configureDeviceViewModel.configureDevice.observe(this, configureDevice -> {
             if(configureDevice) {
-                startActivity(new Intent( ConfigureDeviceActivity.this, HomeActivity.class));
                 finish();
             }
+        });
+
+        configureDeviceViewModel.snackBarMessage.observe(this, snackBarMessage -> {
+            Snackbar.make(activityConfigureDeviceBinding.getRoot(),snackBarMessage, Snackbar.LENGTH_LONG).show();
         });
 
         activityConfigureDeviceBinding.addDeviceButton.setOnClickListener(view -> {
             configureDeviceViewModel.configureDevice(activityConfigureDeviceBinding.nameInput.getText().toString());
         });
+    }
 
+    public void addCategoryRadioButtons() {
+        for(Category category: DataContainer.getInstance().categories) {
+            RadioButton categoryRadioButton = new RadioButton(this);
+            categoryRadioButton.setText(category.getTitle());
+            categoryRadioButton.setOnClickListener(view -> {
+                if(((RadioButton) view).isChecked()) {
+                    configureDeviceViewModel.setCategory(category);
+                }
+            });
 
-
+            activityConfigureDeviceBinding.deviceCategoryRadioGroup.addView(categoryRadioButton);
+        }
     }
 }

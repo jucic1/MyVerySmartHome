@@ -60,12 +60,4 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/groupsHeading" />
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Wyloguj się"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/groupsRecyclerView"
-        android:id="@+id/logOutTextView"/>
-
 </androidx.constraintlayout.widget.ConstraintLayout>
