@@ -32,7 +32,7 @@ public class AddGroupViewModel extends ViewModel {
                 DataContainer.getInstance().createGroup(name, groupDevices);
                 createGroupSuccess.setValue(true);
             } else {
-                groupNameValidation.setValue("Group name already taken");
+                groupNameValidation.setValue("Już istnieje grupa o tym imieniu");
                 createGroupSuccess.setValue(false);
             }
         }
@@ -40,11 +40,11 @@ public class AddGroupViewModel extends ViewModel {
 
     private boolean isSelected(String name) {
         if (name.isEmpty()) {
-            groupNameValidation.setValue("Group name cannot be empty");
+            groupNameValidation.setValue("Nazwa grupy nie może być pusta");
             return false;
         }
         if (groupDevices.isEmpty()) {
-            selectedDevicesValidation.setValue("Select at least one device");
+            selectedDevicesValidation.setValue("Wybierz minimum jedno urządzenie z listy");
             return false;
         }
         return true;

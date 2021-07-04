@@ -1,16 +1,13 @@
 package com.example.myverysmarthome.configuredevice;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.widget.RadioButton;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myverysmarthome.DataContainer;
 import com.example.myverysmarthome.databinding.ActivityConfigureDeviceBinding;
-import com.example.myverysmarthome.home.HomeActivity;
 import com.example.myverysmarthome.model.Category;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -51,6 +48,8 @@ public class ConfigureDeviceActivity extends AppCompatActivity {
     public void addCategoryRadioButtons() {
         for(Category category: DataContainer.getInstance().categories) {
             RadioButton categoryRadioButton = new RadioButton(this);
+
+//            categoryRadioButton.setTextColor(ContextCompat.getColor(itemView.getContext(),R.color.lightGray));
             categoryRadioButton.setText(category.getTitle());
             categoryRadioButton.setOnClickListener(view -> {
                 if(((RadioButton) view).isChecked()) {

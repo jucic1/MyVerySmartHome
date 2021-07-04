@@ -43,6 +43,7 @@ public class ListDevicesActivity extends AppCompatActivity {
 
         category = (Category) getIntent().getSerializableExtra(MENU_ITEM_KEY);
 
+        activityListDevicesBinding.categoryTextView.setText(category.getTitle());
         listDevicesAdapter.setItems(category.getDevicesInGroup());
     }
 }

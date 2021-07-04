@@ -67,7 +67,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="hint"
-                        android:inputType="textPassword"
                         android:id="@+id/hubInput"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>

@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="wrap_content"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/devicesHeading"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:orientation="horizontal">
 
@@ -10,12 +12,20 @@
         android:id="@+id/deviceImage"/>
 
     <TextView
+        android:id="@+id/deviceName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/deviceName"/>
+        android:layout_toRightOf="@+id/deviceImage"
+        android:layout_centerVertical="true"
+        android:textColor="@color/white"
+        tools:text="placeholder name" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/deviceStatus"/>
-</LinearLayout>
+        android:id="@+id/deviceStatus"
+        android:textColor="@color/white"
+        android:layout_centerVertical="true"
+        tools:text="status"
+        android:layout_alignParentEnd="true"/>
+</RelativeLayout>

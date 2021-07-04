@@ -1,14 +1,11 @@
 package com.example.myverysmarthome;
 
-import android.content.Context;
-
 import com.example.myverysmarthome.model.Category;
 import com.example.myverysmarthome.model.Device;
 import com.example.myverysmarthome.model.Group;
 import com.example.myverysmarthome.model.User;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public final class DataContainer {
     private static DataContainer INSTANCE;
@@ -30,14 +27,15 @@ public final class DataContainer {
         devices.add(new Device("Gorne 2"));
         devices.add(new Device("Gorne 3"));
 
-        ArrayList<String> bedroomDevices = new ArrayList<>();
+        ArrayList<String> allDevices = new ArrayList<>();
         for(Device device: devices) {
-            bedroomDevices.add(device.getUuid());
+            allDevices.add(device.getUuid());
         }
-        groups.add(new Group("Sypialnia", bedroomDevices));
-        groups.add(new Group("Sypialnia 2", bedroomDevices));
-        categories.add(new Category("Swiatla", bedroomDevices, R.drawable.placeholder));
+        groups.add(new Group("Sypialnia", allDevices));
+        groups.add(new Group("Sypialnia 2", allDevices));
+        categories.add(new Category("Swiatla", allDevices, R.drawable.lightbulb));
         categories.add(new Category("Termostaty", new ArrayList<>(), R.drawable.temperature));
+        categories.add(new Category("Wszystko", allDevices, R.drawable.all));
     }
 
     public String getHubUuid() {

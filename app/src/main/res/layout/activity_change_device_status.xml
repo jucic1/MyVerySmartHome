@@ -5,6 +5,7 @@
     android:paddingStart="8dp"
     android:paddingEnd="8dp"
     android:weightSum="2"
+    android:background="@color/lightOrange"
     android:orientation="vertical">
 
     <LinearLayout
@@ -45,15 +46,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/deviceNameText"
+            android:textColor="@color/white"
             android:text="Lampka nocna 1" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/forgetDevice"
-            android:text="@string/forget" />
     </LinearLayout>
-
-
-
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/forgetDevice"
+        android:textColor="@color/white"
+        android:text="@string/forget"
+        android:layout_gravity="center"/>
 </LinearLayout>
