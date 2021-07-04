@@ -9,20 +9,15 @@ import java.util.UUID;
 public class Category implements Serializable {
     String id;
     String title;
+    int drawableId;
     ArrayList<String> devicesInCategory;
 
-    public Category(String title, ArrayList<String> bedroomDevices) {
+    public Category(String title, ArrayList<String> bedroomDevices, int drawableId) {
         this.id = UUID.randomUUID().toString();
         this.title = title;
         this.devicesInCategory = bedroomDevices;
+        this.drawableId = drawableId;
     }
-
-    public Category(String title) {
-        this.id = UUID.randomUUID().toString();
-        this.title = title;
-        this.devicesInCategory = new ArrayList<>();
-    }
-
     public String getId() {
         return id;
     }
@@ -37,9 +32,13 @@ public class Category implements Serializable {
 
     public ArrayList<Device> getDevicesInGroup() {
         ArrayList<Device> devices = new ArrayList<>();
-        for(String uuid: devicesInCategory) {
+        for (String uuid : devicesInCategory) {
             devices.add(DataContainer.getInstance().getDevice(uuid));
         }
         return devices;
+    }
+
+    public int getDrawableId() {
+        return drawableId;
     }
 }

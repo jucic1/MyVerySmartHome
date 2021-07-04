@@ -1,5 +1,7 @@
 package com.example.myverysmarthome;
 
+import android.content.Context;
+
 import com.example.myverysmarthome.model.Category;
 import com.example.myverysmarthome.model.Device;
 import com.example.myverysmarthome.model.Group;
@@ -10,10 +12,13 @@ import java.util.Arrays;
 
 public final class DataContainer {
     private static DataContainer INSTANCE;
+    private static Boolean isFirstLaunch = true;
     public ArrayList<User> users;
     public ArrayList<Device> devices;
     public ArrayList<Group> groups;
     public ArrayList<Category> categories;
+    public String hubUuid;
+    public String mac;
 
     private DataContainer() {
         users = new ArrayList<>();
@@ -31,8 +36,32 @@ public final class DataContainer {
         }
         groups.add(new Group("Sypialnia", bedroomDevices));
         groups.add(new Group("Sypialnia 2", bedroomDevices));
-        categories.add(new Category("Swiatla", bedroomDevices));
-        categories.add(new Category("Termostaty", new ArrayList<>()));
+        categories.add(new Category("Swiatla", bedroomDevices, R.drawable.placeholder));
+        categories.add(new Category("Termostaty", new ArrayList<>(), R.drawable.temperature));
+    }
+
+    public String getHubUuid() {
+        return hubUuid;
+    }
+
+    public void setHubUuid(String hubUuid) {
+        this.hubUuid = hubUuid;
+    }
+
+    public String getMac() {
+        return mac;
+    }
+
+    public void setMac(String mac) {
+        this.mac = mac;
+    }
+
+    public static Boolean getIsFirstLaunch() {
+        return isFirstLaunch;
+    }
+
+    public static void setIsFirstLaunch(Boolean isFirstLaunch) {
+        DataContainer.isFirstLaunch = isFirstLaunch;
     }
 
     public Device getDevice(String uuid) {

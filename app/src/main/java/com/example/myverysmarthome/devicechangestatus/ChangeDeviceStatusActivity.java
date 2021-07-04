@@ -3,9 +3,10 @@ package com.example.myverysmarthome.devicechangestatus;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.widget.CompoundButton;
+import android.widget.LinearLayout;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myverysmarthome.databinding.ActivityChangeDeviceStatusBinding;
@@ -33,19 +34,26 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
         final Device item = (Device) getIntent().getSerializableExtra(EXTRA_ITEM_KEY);
 
         activityChangeDeviceStatusBinding.deviceNameText.setText(item.getName());
-        activityChangeDeviceStatusBinding.switch1.setChecked(item.getStatus());
+//        activityChangeDeviceStatusBinding.switch1.setChecked(item.getStatus());
+//
+//        activityChangeDeviceStatusBinding.switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton compoundButton, boolean status) {
+//                changeDeviceStatusViewModel.statusChange(item.getUuid(), status);
+//            }
+//        });
 
-        activityChangeDeviceStatusBinding.switch1.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean status) {
-                changeDeviceStatusViewModel.statusChange(item.getUuid(), status);
-            }
-        });
+        getElement();
 
         activityChangeDeviceStatusBinding.forgetDevice.setOnClickListener(view -> {
             changeDeviceStatusViewModel.removeItem(item);
             finish();
         });
+    }
+
+    void getElement() {
+       SwitchCompat someSwitch = new SwitchCompat(this);
+       activityChangeDeviceStatusBinding.container.addView(someSwitch,LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
     }
 
 }

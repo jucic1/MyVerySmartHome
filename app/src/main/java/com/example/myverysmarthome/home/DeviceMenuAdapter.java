@@ -1,11 +1,15 @@
 package com.example.myverysmarthome.home;
 
+import android.graphics.drawable.Drawable;
+import android.media.Image;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myverysmarthome.DataContainer;
@@ -51,14 +55,18 @@ public class DeviceMenuAdapter extends RecyclerView.Adapter<DeviceMenuAdapter.De
 
     class DeviceMenuViewHolder extends RecyclerView.ViewHolder {
         TextView titleTextView;
+        ImageView categoryImg;
 
         public DeviceMenuViewHolder(@NonNull View itemView) {
             super(itemView);
             titleTextView = itemView.findViewById(R.id.deviceName);
+            categoryImg = itemView.findViewById(R.id.deviceImage);
         }
 
         void bind(Category category, CategoryItemClickListener categoryCallBack) {
             this.titleTextView.setText(category.getTitle());
+            Drawable drawable = itemView.getContext().getResources().getDrawable(category.getDrawableId(),itemView.getContext().getTheme());
+            categoryImg.setImageDrawable(drawable);
             itemView.setOnClickListener(view -> categoryCallBack.categoryItemCLick(category));
         }
     }

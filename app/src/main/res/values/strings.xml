@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MyVerySmartHome</string>
+    <string name="delete"><u>Usuń</u></string>
+    <string name="forget"><u>Zapomnij urządzenie</u></string>
 </resources>

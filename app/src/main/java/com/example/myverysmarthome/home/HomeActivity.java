@@ -1,15 +1,24 @@
 package com.example.myverysmarthome.home;
 
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.DialogFragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myverysmarthome.DataContainer;
+import com.example.myverysmarthome.R;
 import com.example.myverysmarthome.addgroup.AddGroupActivity;
 import com.example.myverysmarthome.alldevices.ListDevicesActivity;
 import com.example.myverysmarthome.configuredevice.ConfigureDeviceActivity;
@@ -19,11 +28,11 @@ import com.example.myverysmarthome.login.LogInActivity;
 import com.example.myverysmarthome.model.Category;
 import com.example.myverysmarthome.model.Device;
 
-public class HomeActivity extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity implements ConfigureHubDeviceListener {
 
     ActivityHomeScreenBinding activityHomeBinding;
     HomeViewModel homeViewModel;
-
+    ConfigureHubDialogFragment dialog;
     DeviceMenuAdapter deviceMenuAdapter;
     GroupsAdapter groupsAdapter;
 
@@ -39,9 +48,23 @@ public class HomeActivity extends AppCompatActivity {
         activityHomeBinding = ActivityHomeScreenBinding.inflate(getLayoutInflater());
         setContentView(activityHomeBinding.getRoot());
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("SOME_KEY", Context.MODE_PRIVATE);
+        homeViewModel.configurationStatus.observe(this, configurationStatus -> {
+            if(configurationStatus){
+                dialog.dismiss();
+                sharedPreferences.edit().putBoolean("IS_DEVICE_CONFIGURED",configurationStatus).apply();
+            }
+        });
         RecyclerView recyclerViewDeviceMenu = activityHomeBinding.deviceMenuRecyclerView;
 
-        deviceMenuAdapter =  new DeviceMenuAdapter(new CategoryItemClickListener() {
+
+        if (!sharedPreferences.getBoolean("IS_DEVICE_CONFIGURED", false)) {
+            dialog = new ConfigureHubDialogFragment();
+            dialog.setCancelable(false);
+            dialog.show(getSupportFragmentManager(), "SOME_TAG");
+        }
+
+        deviceMenuAdapter = new DeviceMenuAdapter(new CategoryItemClickListener() {
             @Override
             public void categoryItemCLick(Category deviceMenuItem) {
                 startActivity(ListDevicesActivity.getIntent(getApplicationContext(), deviceMenuItem));
@@ -62,12 +85,15 @@ public class HomeActivity extends AppCompatActivity {
         recyclerViewGroups.setAdapter(groupsAdapter);
 
         activityHomeBinding.addDeviceImage.setOnClickListener(view -> {
-            startActivity(new Intent( HomeActivity.this, ConfigureDeviceActivity.class));
+            startActivity(new Intent(HomeActivity.this, ConfigureDeviceActivity.class));
         });
         activityHomeBinding.addGroupImage.setOnClickListener(view -> {
-            startActivity(new Intent( HomeActivity.this, AddGroupActivity.class));
+            startActivity(new Intent(HomeActivity.this, AddGroupActivity.class));
         });
+    }
 
-
+    @Override
+    public void onConfigure(String mac, String uuid) {
+        homeViewModel.configureHub(mac, uuid);
     }
 }
