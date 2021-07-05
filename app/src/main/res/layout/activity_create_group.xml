@@ -47,8 +47,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
-                android:textColorHint="@color/lightOrange"
-                app:boxStrokeColor="@color/lightOrange"
+                android:textColorHint="@color/orange"
+                app:boxStrokeColor="@color/orange"
                 android:id="@+id/nameLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
@@ -85,7 +85,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/white"
-            android:textColor="@color/lightOrange"
+            android:textColor="@color/orange"
             android:id="@+id/createButton"/>
 
 

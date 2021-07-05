@@ -2,12 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/lightGreen"
-    android:layout_margin="16dp"
+    android:background="@drawable/rounded_corners_opaque_orange"
+    android:layout_margin="10dp"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
+
     <LinearLayout
-        android:background="@color/darkGreen"
+        android:background="@drawable/rounded_upper_corners_orange"
         android:padding="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -24,7 +25,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/groupRecyclerView"/>
+        android:id="@+id/groupRecyclerView"
+        android:paddingLeft="12dp"
+        android:paddingTop="12dp"/>
 
     <TextView
         android:textColor="@color/white"
@@ -32,6 +35,7 @@
         android:layout_height="wrap_content"
         android:text="@string/delete"
         android:layout_gravity="right"
+        android:paddingBottom="8dp"
         android:paddingRight="16dp"
         android:id="@+id/deleteTextView"/>
 

@@ -13,8 +13,6 @@
     <color name="lightGray">#84C8D1D3</color>
     <color name="lightGreen">#368E3A</color>
     <color name="darkGreen">#346136</color>
-    <color name="lightOrange">#D97D54</color>
-
-
-
+    <color name="orange">#D97D54</color>
+    <color name="opaqueOrange">#80D97D54</color>
 </resources>

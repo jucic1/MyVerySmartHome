@@ -45,6 +45,6 @@
     <View
         android:layout_height="1dp"
         android:layout_width="match_parent"
-        android:background="@color/lightOrange">
+        android:background="@color/orange">
     </View>
 </LinearLayout>

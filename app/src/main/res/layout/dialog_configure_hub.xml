@@ -78,6 +78,6 @@
             android:layout_height="wrap_content"
             android:id="@+id/configureButton"
             android:backgroundTint="@color/white"
-            android:textColor="@color/lightOrange"/>
+            android:textColor="@color/orange"/>
     </LinearLayout>
 </LinearLayout>
