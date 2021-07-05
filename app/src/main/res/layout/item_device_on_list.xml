@@ -1,31 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/devicesHeading"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
-    <ImageView
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:id="@+id/deviceImage"/>
+    <RelativeLayout
+        android:id="@+id/devicesHeading"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:padding="18dp">
 
-    <TextView
-        android:id="@+id/deviceName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@+id/deviceImage"
-        android:layout_centerVertical="true"
-        android:textColor="@color/white"
-        tools:text="placeholder name" />
+        <ImageView
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginEnd="16dp"
+            android:id="@+id/deviceImage"
+            android:src="@drawable/lightbulb" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/deviceStatus"
-        android:textColor="@color/white"
-        android:layout_centerVertical="true"
-        tools:text="status"
-        android:layout_alignParentEnd="true"/>
-</RelativeLayout>
+        <TextView
+            android:layout_gravity="center"
+            android:textSize="16sp"
+            android:layout_marginEnd="16dp"
+            android:id="@+id/deviceName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/deviceImage"
+            android:layout_centerVertical="true"
+            android:textColor="@color/white"
+            tools:text="placeholder name" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/deviceStatus"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="16dp"
+            tools:text="status"
+            android:layout_alignParentEnd="true"/>
+    </RelativeLayout>
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@color/lightOrange">
+    </View>
+</LinearLayout>

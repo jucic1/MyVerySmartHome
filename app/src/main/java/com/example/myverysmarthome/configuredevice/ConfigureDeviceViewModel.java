@@ -15,15 +15,17 @@ public class ConfigureDeviceViewModel extends ViewModel {
     MutableLiveData<Category> category = new MutableLiveData<>();
 
     void configureDevice(String name) {
-        if (name.isEmpty() || category.getValue() == null) {
-            snackBarMessage.setValue("costam");
+        if (name.isEmpty()){
+            snackBarMessage.setValue("Nazwa urządzenia nie może być pusta");
+        } else if (category.getValue() == null) {
+            snackBarMessage.setValue("Urządzenie musi zostać przypisane do kategorii");
         } else {
             if (isNameUnique(name)) {
                 Device newDevice = DataContainer.getInstance().createDevice(name);
                 DataContainer.getInstance().getCategory(category.getValue().getId()).addDevice(newDevice.getUuid());
                 configureDevice.setValue(true);
             } else {
-                deviceNameValidation.setValue("Device name already taken");
+                deviceNameValidation.setValue("Urządzenie o takim imieniu już istnieje");
                 configureDevice.setValue(false);
             }
         }
