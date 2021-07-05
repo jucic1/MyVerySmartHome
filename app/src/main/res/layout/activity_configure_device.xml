@@ -48,10 +48,20 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="hint"
+                        android:inputType="text"
                         android:id="@+id/nameInput"/>
                 </com.google.android.material.textfield.TextInputLayout>
 
             </LinearLayout>
+
+            <View
+                android:layout_height="1dp"
+                android:layout_width="match_parent"
+                android:background="@color/lightOrange">
+            </View>
+
+
+
 
             <TextView
                 android:layout_width="wrap_content"
@@ -72,6 +82,8 @@
             android:text="dodaj urządzenie"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/lightOrange"
             android:id="@+id/addDeviceButton"/>
 
     </LinearLayout>

@@ -76,6 +76,8 @@
             android:text="configuruj"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/configureButton"/>
+            android:id="@+id/configureButton"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/lightOrange"/>
     </LinearLayout>
 </LinearLayout>

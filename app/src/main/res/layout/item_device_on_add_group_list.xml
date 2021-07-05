@@ -3,26 +3,41 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="horizontal">
 
-    <ImageView
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:id="@+id/deviceImage"/>
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/deviceName"
-        android:layout_gravity="center"
-        tools:text="This is some test"
-        android:textColor="@color/white" />
+        android:orientation="horizontal"
+        android:padding="8dp">
+        <ImageView
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:src="@drawable/lightbulb"
+            android:layout_marginEnd="16dp"
+            android:id="@+id/deviceImage"/>
 
-   <CheckBox
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_gravity="center"
-        android:buttonTint="@color/white"
-        android:id="@+id/addDeviceCheckbox"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/deviceName"
+            android:layout_gravity="center"
+            android:textSize="16sp"
+            tools:text="This is some test"
+            android:layout_marginEnd="16dp"
+            android:textColor="@color/white" />
 
+       <CheckBox
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_gravity="center"
+            android:buttonTint="@color/lightOrange"
+            android:id="@+id/addDeviceCheckbox"/>
+    </LinearLayout>
+    <View
+        android:layout_height="1dp"
+        android:layout_width="match_parent"
+        android:background="@color/lightOrange">
+    </View>
 </LinearLayout>

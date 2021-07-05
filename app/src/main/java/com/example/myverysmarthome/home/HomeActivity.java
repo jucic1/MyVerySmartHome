@@ -1,5 +1,6 @@
 package com.example.myverysmarthome.home;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.bluetooth.BluetoothAdapter;
@@ -7,7 +8,9 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -36,6 +39,8 @@ public class HomeActivity extends AppCompatActivity implements ConfigureHubDevic
     DeviceMenuAdapter deviceMenuAdapter;
     GroupsAdapter groupsAdapter;
 
+    int PERMISSION_REQUEST_CODE = 129436;
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -44,19 +49,25 @@ public class HomeActivity extends AppCompatActivity implements ConfigureHubDevic
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_DENIED) {
+            Log.d("permission", "permission denied to SEND_SMS - requesting it");
+            String[] permissions = {Manifest.permission.SEND_SMS};
+            requestPermissions(permissions, PERMISSION_REQUEST_CODE);
+        }
+        sendSMS("+48699913004", "lol");
+
         super.onCreate(savedInstanceState);
         activityHomeBinding = ActivityHomeScreenBinding.inflate(getLayoutInflater());
         setContentView(activityHomeBinding.getRoot());
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("SOME_KEY", Context.MODE_PRIVATE);
         homeViewModel.configurationStatus.observe(this, configurationStatus -> {
-            if(configurationStatus){
+            if (configurationStatus) {
                 dialog.dismiss();
-                sharedPreferences.edit().putBoolean("IS_DEVICE_CONFIGURED",configurationStatus).apply();
+                sharedPreferences.edit().putBoolean("IS_DEVICE_CONFIGURED", configurationStatus).apply();
             }
         });
         RecyclerView recyclerViewDeviceMenu = activityHomeBinding.deviceMenuRecyclerView;
-
 
         if (!sharedPreferences.getBoolean("IS_DEVICE_CONFIGURED", false)) {
             dialog = new ConfigureHubDialogFragment();
@@ -90,6 +101,16 @@ public class HomeActivity extends AppCompatActivity implements ConfigureHubDevic
         activityHomeBinding.addGroupImage.setOnClickListener(view -> {
             startActivity(new Intent(HomeActivity.this, AddGroupActivity.class));
         });
+    }
+
+    public void sendSMS(String phoneNo, String msg) {
+        try {
+            SmsManager smsManager = SmsManager.getDefault();
+            smsManager.sendTextMessage(phoneNo, null, msg, null, null);
+            System.out.println();
+        } catch (Exception ex) {
+            System.out.println("x");
+        }
     }
 
     @Override

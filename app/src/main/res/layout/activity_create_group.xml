@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingStart="8dp"
-    android:paddingEnd="8dp"
+    android:paddingStart="16dp"
+    android:paddingEnd="16dp"
     android:id="@+id/logInContainer"
     android:orientation="vertical">
 
@@ -16,21 +16,26 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:textSize="28dp"
             android:text="Stwórz grupę"
+            android:textAllCaps="true"
+            android:paddingBottom="8dp"
             android:textColor="@color/white"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:weightSum="5">
+            android:weightSum="5"
+            android:paddingBottom="12dp">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="22dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:text="Nazwa:"
-                android:textColor="@color/white"/>
+                android:textColor="@color/white"
+                android:textSize="20dp" />
 
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="wrap_content"
@@ -41,7 +46,8 @@
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Podaj unikatową nazwę dla grupy"
+                    android:inputType="text"
+                    android:hint="Podaj unikatową nazwę"
                     android:id="@+id/nameInput"/>
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -51,6 +57,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Wybierz urządzenia:"
+            android:textSize="20dp"
+            android:paddingBottom="8dp"
             android:layout_gravity="left"
             android:textColor="@color/white"/>
 
@@ -61,8 +69,13 @@
 
         <Button
             android:text="Stwórz grupę"
+            android:textSize="18dp"
+            android:padding="8dp"
+            android:layout_marginTop="24dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:backgroundTint="@color/white"
+            android:textColor="@color/lightOrange"
             android:id="@+id/createButton"/>
 
 
