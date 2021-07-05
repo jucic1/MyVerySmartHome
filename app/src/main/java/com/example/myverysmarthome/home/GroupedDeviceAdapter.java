@@ -64,9 +64,9 @@ public class GroupedDeviceAdapter extends RecyclerView.Adapter<GroupedDeviceAdap
             this.nameTextView.setText(item.getName());
             boolean status = item.getStatus();
             if(status){
-                this.container.setBackgroundColor(ContextCompat.getColor(itemView.getContext(),R.color.lightGray));
+                this.container.setBackground(ContextCompat.getDrawable(itemView.getContext(),R.drawable.rounded_corners_light_gray));
             }else{
-                this.container.setBackgroundColor(ContextCompat.getColor(itemView.getContext(),R.color.gray));
+                this.container.setBackground(ContextCompat.getDrawable(itemView.getContext(),R.drawable.rounded_corners_gray));
             }
             this.statusTextView.setText(item.getStatus().toString());
             itemView.setOnClickListener(view -> itemCallback.onItemClick(item));

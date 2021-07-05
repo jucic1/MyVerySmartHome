@@ -23,7 +23,7 @@
         android:paddingTop="16dp"
         android:paddingBottom="16dp"
         android:textColor="@color/white"
-        android:background="@drawable/rounded_corners_light_blue_gray"
+        android:background="@drawable/rounded_corners_light_blue"
         tools:ignore="MissingConstraints" />
 
 

@@ -61,19 +61,21 @@ public class ConfigureDeviceActivity extends AppCompatActivity {
         );
 
         for(Category category: DataContainer.getInstance().categories) {
-            RadioButton categoryRadioButton = new RadioButton(this);
-            categoryRadioButton.setTextColor(Color.WHITE);
-            categoryRadioButton.setTextSize(18);
-            categoryRadioButton.setPadding(15, 15, 15, 15);
-            categoryRadioButton.setButtonTintList(colorStateList);
-            categoryRadioButton.setText(category.getTitle());
-            categoryRadioButton.setOnClickListener(view -> {
-                if(((RadioButton) view).isChecked()) {
-                    configureDeviceViewModel.setCategory(category);
-                }
-            });
+            if(!category.getTitle().equals("Wszystko")) {
+                RadioButton categoryRadioButton = new RadioButton(this);
+                categoryRadioButton.setTextColor(Color.WHITE);
+                categoryRadioButton.setTextSize(18);
+                categoryRadioButton.setPadding(15, 15, 15, 15);
+                categoryRadioButton.setButtonTintList(colorStateList);
+                categoryRadioButton.setText(category.getTitle());
+                categoryRadioButton.setOnClickListener(view -> {
+                    if (((RadioButton) view).isChecked()) {
+                        configureDeviceViewModel.setCategory(category);
+                    }
+                });
 
-            activityConfigureDeviceBinding.deviceCategoryRadioGroup.addView(categoryRadioButton);
+                activityConfigureDeviceBinding.deviceCategoryRadioGroup.addView(categoryRadioButton);
+            }
         }
     }
 }

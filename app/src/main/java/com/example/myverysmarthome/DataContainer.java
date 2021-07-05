@@ -33,8 +33,8 @@ public final class DataContainer {
         }
         groups.add(new Group("Sypialnia", allDevices));
         groups.add(new Group("Sypialnia 2", allDevices));
-        categories.add(new Category("Swiatla", allDevices, R.drawable.lightbulb));
-        categories.add(new Category("Termostaty", new ArrayList<>(), R.drawable.temperature));
+        categories.add(new Category("Swiatło", allDevices, R.drawable.lightbulb));
+        categories.add(new Category("Termostat", new ArrayList<>(), R.drawable.temperature));
         categories.add(new Category("Wszystko", allDevices, R.drawable.all));
     }
 
