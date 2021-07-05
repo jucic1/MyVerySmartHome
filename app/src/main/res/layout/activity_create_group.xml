@@ -4,30 +4,36 @@
     android:layout_height="match_parent"
     android:paddingStart="16dp"
     android:paddingEnd="16dp"
-    android:id="@+id/logInContainer"
-    android:orientation="vertical">
+    android:layout_margin="8dp"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:gravity="center"
         android:orientation="vertical"
+        android:paddingTop="12dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
+            android:gravity="center"
             android:layout_height="wrap_content"
             android:textSize="28dp"
             android:text="Stwórz grupę"
+            android:layout_gravity="center"
             android:textAllCaps="true"
-            android:paddingBottom="8dp"
-            android:textColor="@color/white"/>
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp"
+            android:textColor="@color/white"
+            android:background="@drawable/rounded_corners_light_blue_gray"/>
+
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="5"
-            android:paddingBottom="12dp">
+            android:paddingBottom="24dp">
 
             <TextView
                 android:layout_width="22dp"
@@ -41,12 +47,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="3"
+                android:textColorHint="@color/lightOrange"
+                app:boxStrokeColor="@color/lightOrange"
                 android:id="@+id/nameLayout">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:background="@color/darkBlue"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text"
+                    android:textColor="@color/white"
                     android:hint="Podaj unikatową nazwę"
                     android:id="@+id/nameInput"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -58,7 +68,7 @@
             android:layout_height="wrap_content"
             android:text="Wybierz urządzenia:"
             android:textSize="20dp"
-            android:paddingBottom="8dp"
+            android:paddingBottom="16dp"
             android:layout_gravity="left"
             android:textColor="@color/white"/>
 

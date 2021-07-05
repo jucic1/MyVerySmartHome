@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="TextInputStyle" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense">
-        <item name="colorAccent">#fff</item>
+    <style name="myTextInputLabel" parent="TextAppearance.AppCompat">
+        <!-- Customize your theme here. -->
+        <item name="android:textColorHint">@android:color/tertiary_text_dark</item>
+        <item name="android:textSize">20sp</item>
+        <item name="colorAccent">@color/lightOrange</item>
+        <item name="colorControlNormal">@android:color/tertiary_text_dark</item>
+        <item name="colorControlActivated">@android:color/holo_orange_light</item>
     </style>
+
 </resources>

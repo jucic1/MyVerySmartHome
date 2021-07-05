@@ -14,6 +14,7 @@ import android.telephony.SmsManager;
 import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
@@ -57,6 +58,9 @@ public class HomeActivity extends AppCompatActivity implements ConfigureHubDevic
         sendSMS("+48699913004", "lol");
 
         super.onCreate(savedInstanceState);
+
+//        getWindow().getStatusBarColor(ContextCompat.getColor(HomeActivity.this, R.color.darkBlue));
+
         activityHomeBinding = ActivityHomeScreenBinding.inflate(getLayoutInflater());
         setContentView(activityHomeBinding.getRoot());
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
