@@ -11,7 +11,7 @@
         android:gravity="center"
         android:orientation="vertical"
         android:layout_width="400dp"
-        android:layout_height="match_parent">
+        android:layout_height="400dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -73,11 +73,11 @@
         </LinearLayout>
 
         <Button
-            android:text="configuruj"
+            android:text="Dodaj"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/configureButton"
-            android:backgroundTint="@color/white"
+            android:backgroundTint="@color/darkBlue"
             android:textColor="@color/orange"/>
     </LinearLayout>
 </LinearLayout>

@@ -4,11 +4,10 @@ import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
 import com.example.myverysmarthome.DataContainer;
-import com.example.myverysmarthome.model.Device;
+import com.example.myverysmarthome.model.devices.Device;
 import com.example.myverysmarthome.model.Group;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class AddGroupViewModel extends ViewModel {
 

@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myverysmarthome.databinding.ActivityCreateGroupBinding;
-import com.example.myverysmarthome.model.Device;
+import com.example.myverysmarthome.model.devices.Device;
 import com.google.android.material.snackbar.Snackbar;
 
 public class AddGroupActivity extends AppCompatActivity {

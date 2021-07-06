@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myverysmarthome.DataContainer;
 import com.example.myverysmarthome.R;
-import com.example.myverysmarthome.model.Device;
+import com.example.myverysmarthome.model.devices.Device;
 
 import java.util.ArrayList;
 
@@ -59,9 +59,9 @@ public class ListDevicesAdapter extends RecyclerView.Adapter<ListDevicesAdapter.
 
         void bind(Device device, ListDevicesCallBack listDevicesCallBack) {
             this.nameTextView.setText(device.getName());
-            this.statusTextView.setText(device.getStatus().toString());
+            this.statusTextView.setText(device.getValue().toString());
             statusTextView.setOnClickListener(view -> {
-                DataContainer.getInstance().getDevice(device.getUuid()).setStatus(!device.getStatus());
+                DataContainer.getInstance().getDevice(device.getUuid());
                 listDevicesCallBack.onItemClick();
             });
         }

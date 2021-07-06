@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myverysmarthome.DataContainer;
 import com.example.myverysmarthome.R;
-import com.example.myverysmarthome.model.Device;
+import com.example.myverysmarthome.model.devices.Device;
 
 import java.util.ArrayList;
 

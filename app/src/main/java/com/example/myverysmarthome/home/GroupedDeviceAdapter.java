@@ -11,7 +11,10 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myverysmarthome.R;
-import com.example.myverysmarthome.model.Device;
+import com.example.myverysmarthome.model.devices.Camera;
+import com.example.myverysmarthome.model.devices.Device;
+import com.example.myverysmarthome.model.devices.Light;
+import com.example.myverysmarthome.model.devices.Plug;
 
 import java.util.ArrayList;
 
@@ -62,13 +65,15 @@ public class GroupedDeviceAdapter extends RecyclerView.Adapter<GroupedDeviceAdap
 
         public void bind(Device item, GroupedDeviceCallBack itemCallback) {
             this.nameTextView.setText(item.getName());
-            boolean status = item.getStatus();
-            if(status){
+            if (item instanceof Light || item instanceof Camera || item instanceof Plug) {
+                boolean boolStatus = (boolean) item.getValue();
+                if(!boolStatus) {
+                    this.container.setBackground(ContextCompat.getDrawable(itemView.getContext(),R.drawable.rounded_corners_gray));
+                }
+            } else {
                 this.container.setBackground(ContextCompat.getDrawable(itemView.getContext(),R.drawable.rounded_corners_light_gray));
-            }else{
-                this.container.setBackground(ContextCompat.getDrawable(itemView.getContext(),R.drawable.rounded_corners_gray));
             }
-            this.statusTextView.setText(item.getStatus().toString());
+            this.statusTextView.setText(item.getValue().toString());
             itemView.setOnClickListener(view -> itemCallback.onItemClick(item));
         }
     }

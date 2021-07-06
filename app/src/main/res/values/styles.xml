@@ -10,4 +10,17 @@
         <item name="colorControlActivated">@android:color/holo_orange_light</item>
     </style>
 
+
+    <style name="Base.Widget.MaterialComponents.TextInputLayout" parent="Widget.Design.TextInputLayout">
+        <item name="errorTextColor">@color/orange</item>
+    </style>
+
+    <style name="Widget.Design.TextInputLayout" parent="android:Widget">
+        <item name="errorTextColor">@color/orange</item>
+        //Defaults the textinputlayout to the plain one, offered by older versions of support library.
+        <item name="hintTextAppearance">@style/TextAppearance.Design.Hint</item>
+        <item name="helperTextTextAppearance">@style/TextAppearance.Design.HelperText</item>
+        <item name="errorTextAppearance">@style/TextAppearance.Design.Error</item>
+    </style>
+
 </resources>

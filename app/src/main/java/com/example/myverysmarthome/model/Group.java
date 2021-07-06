@@ -1,6 +1,7 @@
 package com.example.myverysmarthome.model;
 
 import com.example.myverysmarthome.DataContainer;
+import com.example.myverysmarthome.model.devices.Device;
 
 import java.util.ArrayList;
 

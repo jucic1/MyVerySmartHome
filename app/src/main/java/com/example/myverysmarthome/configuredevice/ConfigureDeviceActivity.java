@@ -6,11 +6,9 @@ import android.os.Bundle;
 import android.widget.RadioButton;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.myverysmarthome.DataContainer;
-import com.example.myverysmarthome.R;
 import com.example.myverysmarthome.databinding.ActivityConfigureDeviceBinding;
 import com.example.myverysmarthome.model.Category;
 import com.google.android.material.snackbar.Snackbar;
