@@ -1,10 +1,12 @@
 package com.example.myverysmarthome.addgroup;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -51,15 +53,20 @@ public class AddGroupAdapter extends RecyclerView.Adapter<AddGroupAdapter.AddGro
     class AddGroupViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;
         CheckBox deviceCheckbox;
+        ImageView deviceImage;
 
         public AddGroupViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.deviceName);
             deviceCheckbox = itemView.findViewById(R.id.addDeviceCheckbox);
+            deviceImage = itemView.findViewById(R.id.deviceImage);
         }
 
         void bind(Device device, AddGroupCallBack addGroupCallBack) {
             this.nameTextView.setText(device.getName());
+            Drawable drawable = itemView.getContext().getResources().getDrawable(device.getDrawableId(),itemView.getContext().getTheme());
+            deviceImage.setImageDrawable(drawable);
+
             deviceCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                 @Override
                 public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {

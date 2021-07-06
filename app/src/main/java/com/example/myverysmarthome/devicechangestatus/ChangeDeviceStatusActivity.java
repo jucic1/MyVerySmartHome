@@ -5,11 +5,13 @@ import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.lifecycle.ViewModelProvider;
@@ -19,6 +21,7 @@ import com.example.myverysmarthome.databinding.ActivityChangeDeviceStatusBinding
 import com.example.myverysmarthome.model.devices.Camera;
 import com.example.myverysmarthome.model.devices.Device;
 import com.example.myverysmarthome.model.devices.Fan;
+import com.example.myverysmarthome.model.devices.Level;
 import com.example.myverysmarthome.model.devices.Light;
 import com.example.myverysmarthome.model.devices.Plug;
 import com.example.myverysmarthome.model.devices.Thermostat;
@@ -62,7 +65,8 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
     void getElement(Device device) {
         if (device instanceof Light || device instanceof Camera || device instanceof Plug) {
             SwitchCompat someSwitch = new SwitchCompat(this);
-            someSwitch.setChecked(((Light) device).getValue());
+            Boolean status = (Boolean) device.getValue();
+            someSwitch.setChecked(status);
             someSwitch.setScaleX(3);
             someSwitch.setScaleY(3);
             someSwitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -82,8 +86,16 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
             slider.setValue(20);
             slider.setScaleX((float) 0.5);
             slider.setScaleY(2);
+            slider.addOnChangeListener(new Slider.OnChangeListener() {
+                @Override
+                public void onValueChange(Slider slider, float value, boolean fromUser) {
+                    DataContainer.getInstance().getDevice(device.getUuid()).setValue(value);
+                    Float newStatus = (Float) DataContainer.getInstance().getDevice(device.getUuid()).getValue();
+                    activityChangeDeviceStatusBinding.deviceStatusText.setText(newStatus.toString());
+                }
+            });
             activityChangeDeviceStatusBinding.container.addView(slider, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        } else if (device instanceof Fan){
+        } else if (device instanceof Fan) {
             ColorStateList colorStateList = new ColorStateList(
                     new int[][]{
                             new int[]{-android.R.attr.state_checked},
@@ -95,27 +107,35 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
             );
             RadioGroup radioGroup = new RadioGroup(this);
             radioGroup.setOrientation(RadioGroup.HORIZONTAL);
-            ArrayList<String> options = new ArrayList<String>(Arrays.asList("Lagodny", "Sredni", "Mocny"));
-            for (String option : options) {
+            Level currentLevel = (Level) DataContainer.getInstance().getDevice(device.getUuid()).getValue();
+            int idOfCheckedButton = 0;
+            for (Level level : Level.values()) {
                 RadioButton categoryRadioButton = new RadioButton(this);
                 categoryRadioButton.setTextColor(Color.WHITE);
                 categoryRadioButton.setTextSize(18);
+                categoryRadioButton.setId(View.generateViewId());
                 categoryRadioButton.setPadding(15, 15, 15, 15);
-                categoryRadioButton.setText(option);
+                categoryRadioButton.setText(level.toString());
                 categoryRadioButton.setButtonTintList(colorStateList);
-//                categoryRadioButton.setOnClickListener(view -> {
-//                    if (((RadioButton) view).isChecked()) {
-//                        configureDeviceViewModel.setCategory(category);
-//                    }
-//                });
-
+                if(level == currentLevel) {
+                    idOfCheckedButton = categoryRadioButton.getId();
+                }
                 radioGroup.addView(categoryRadioButton);
             }
+            radioGroup.check(idOfCheckedButton);
+            radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(RadioGroup group, int checkedId) {
+                        RadioButton checkedRadioButton = (RadioButton)group.findViewById(checkedId);
+                        Level newLevel = Level.valueOf((String) checkedRadioButton.getText());
+                        DataContainer.getInstance().getDevice(device.getUuid()).setValue(newLevel);
+                        activityChangeDeviceStatusBinding.deviceStatusText.setText(checkedRadioButton.getText());
+                    }
+            });
             activityChangeDeviceStatusBinding.container.addView(radioGroup, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
         } else {
             throw new IllegalStateException("Not known instance type");
         }
 
     }
-
 }

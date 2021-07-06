@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myverysmarthome.R;
 import com.example.myverysmarthome.databinding.ActivityCreateGroupBinding;
 import com.example.myverysmarthome.model.devices.Device;
 import com.google.android.material.snackbar.Snackbar;

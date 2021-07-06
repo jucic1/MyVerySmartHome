@@ -24,6 +24,7 @@ public class ConfigureDeviceViewModel extends ViewModel {
             if (isNameUnique(name)) {
                 Device newDevice = DataContainer.getInstance().createDevice(name, fromCategory(category.getValue().getTitle()));
                 DataContainer.getInstance().getCategory(category.getValue().getId()).addDevice(newDevice.getUuid());
+                DataContainer.getInstance().getAllCategory().addDevice(newDevice.getUuid());
                 configureDevice.setValue(true);
             } else {
                 deviceNameValidation.setValue("Urządzenie o takiej nazwie już istnieje");

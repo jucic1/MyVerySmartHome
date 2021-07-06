@@ -1,6 +1,7 @@
 package com.example.myverysmarthome;
 
 import com.example.myverysmarthome.model.Category;
+import com.example.myverysmarthome.model.devices.Camera;
 import com.example.myverysmarthome.model.devices.Device;
 import com.example.myverysmarthome.model.devices.DeviceType;
 import com.example.myverysmarthome.model.Group;
@@ -29,20 +30,29 @@ public final class DataContainer {
         categories = new ArrayList<>();
 
         devices.add(new Light("Gorne"));
-        devices.add(new Plug("Mikser"));
+        devices.add(new Light("Gorne 2"));
         devices.add(new Light("Gorne 3"));
 
+        ArrayList<String> lightDevices = new ArrayList<>();
+        for (Device device : devices) {
+            lightDevices.add(device.getUuid());
+        }
+        Fan fan = new Fan("Kuchnia");
+        devices.add(fan);
         ArrayList<String> allDevices = new ArrayList<>();
         for (Device device : devices) {
             allDevices.add(device.getUuid());
         }
+        ArrayList<String> fanDevices = new ArrayList<>();
+        fanDevices.add(fan.getUuid());
+
         groups.add(new Group("Sypialnia", allDevices));
         groups.add(new Group("Sypialnia 2", allDevices));
-        categories.add(new Category("Swiatło", allDevices, R.drawable.lightbulb));
+        categories.add(new Category("Swiatło", lightDevices, R.drawable.lightbulb));
         categories.add(new Category("Termostat", new ArrayList<>(), R.drawable.temperature));
         categories.add(new Category("Kamera", new ArrayList<>(), R.drawable.camera));
         categories.add(new Category("Włącznik", new ArrayList<>(), R.drawable.plug));
-        categories.add(new Category("Wiatrak", new ArrayList<>(), R.drawable.fan));
+        categories.add(new Category("Wiatrak", fanDevices, R.drawable.fan));
         categories.add(new Category("Wszystko", allDevices, R.drawable.all));
     }
 
@@ -62,14 +72,6 @@ public final class DataContainer {
         this.mac = mac;
     }
 
-    public static Boolean getIsFirstLaunch() {
-        return isFirstLaunch;
-    }
-
-    public static void setIsFirstLaunch(Boolean isFirstLaunch) {
-        DataContainer.isFirstLaunch = isFirstLaunch;
-    }
-
     public Device getDevice(String uuid) {
         for (Device device : DataContainer.getInstance().devices) {
             if (device.getUuid().equals(uuid)) {
@@ -77,10 +79,6 @@ public final class DataContainer {
             }
         }
         return null;
-    }
-
-    public void removeDevice(Device device) {
-        devices.remove(device);
     }
 
     public void removeGroup(Group group) {
@@ -102,10 +100,13 @@ public final class DataContainer {
         }
     }
 
-    public ArrayList<String> getCategoriesNames() {
-        ArrayList<String> result = new ArrayList<>();
-        categories.forEach(c -> result.add(c.getTitle()));
-        return result;
+    public Category getAllCategory() {
+        for (Category category : categories) {
+            if (category.getTitle().equals("Wszystko")) {
+                return category;
+            }
+        }
+        return null;
     }
 
     public Category getCategory(String id) {
@@ -130,12 +131,21 @@ public final class DataContainer {
 
     public Device createDevice(String name, DeviceType deviceType) {
         Device newDevice;
-        switch(deviceType) {
+        switch (deviceType) {
             case LIGHT:
                 newDevice = new Light(name);
                 break;
             case THERMOSTAT:
                 newDevice = new Thermostat(name);
+                break;
+            case PLUG:
+                newDevice = new Plug(name);
+                break;
+            case CAMERA:
+                newDevice = new Camera(name);
+                break;
+            case FAN:
+                newDevice = new Fan(name);
                 break;
             default:
                 throw new IllegalStateException();

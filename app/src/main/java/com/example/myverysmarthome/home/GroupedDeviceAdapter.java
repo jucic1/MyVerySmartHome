@@ -75,6 +75,8 @@ public class GroupedDeviceAdapter extends RecyclerView.Adapter<GroupedDeviceAdap
                 boolean boolStatus = (boolean) item.getValue();
                 if(!boolStatus) {
                     this.container.setBackground(ContextCompat.getDrawable(itemView.getContext(),R.drawable.rounded_corners_gray));
+                } else {
+                    this.container.setBackground(ContextCompat.getDrawable(itemView.getContext(),R.drawable.rounded_corners_light_gray));
                 }
             } else {
                 this.container.setBackground(ContextCompat.getDrawable(itemView.getContext(),R.drawable.rounded_corners_light_gray));
