@@ -1,8 +1,10 @@
 package com.example.myverysmarthome.home;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -54,6 +56,7 @@ public class GroupedDeviceAdapter extends RecyclerView.Adapter<GroupedDeviceAdap
     class GroupedDeviceViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;
         TextView statusTextView;
+        ImageView deviceImage;
         LinearLayout container;
 
         public GroupedDeviceViewHolder(@NonNull View itemView) {
@@ -61,10 +64,13 @@ public class GroupedDeviceAdapter extends RecyclerView.Adapter<GroupedDeviceAdap
             nameTextView = itemView.findViewById(R.id.deviceName);
             statusTextView = itemView.findViewById(R.id.deviceStatus);
             container = itemView.findViewById(R.id.deviceContainer);
+            deviceImage = itemView.findViewById(R.id.deviceImage);
         }
 
         public void bind(Device item, GroupedDeviceCallBack itemCallback) {
             this.nameTextView.setText(item.getName());
+            Drawable drawable = itemView.getContext().getResources().getDrawable(item.getDrawableId(),itemView.getContext().getTheme());
+            this.deviceImage.setImageDrawable(drawable);
             if (item instanceof Light || item instanceof Camera || item instanceof Plug) {
                 boolean boolStatus = (boolean) item.getValue();
                 if(!boolStatus) {

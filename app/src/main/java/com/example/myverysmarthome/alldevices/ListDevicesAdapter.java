@@ -1,8 +1,10 @@
 package com.example.myverysmarthome.alldevices;
 
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -50,16 +52,20 @@ public class ListDevicesAdapter extends RecyclerView.Adapter<ListDevicesAdapter.
     class AllDevicesViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;
         TextView statusTextView;
+        ImageView deviceImage;
 
         public AllDevicesViewHolder(@NonNull View itemView) {
             super(itemView);
             nameTextView = itemView.findViewById(R.id.deviceName);
             statusTextView = itemView.findViewById(R.id.deviceStatus);
+            deviceImage  = itemView.findViewById(R.id.deviceImage);
         }
 
         void bind(Device device, ListDevicesCallBack listDevicesCallBack) {
             this.nameTextView.setText(device.getName());
             this.statusTextView.setText(device.getValue().toString());
+            Drawable drawable = itemView.getContext().getResources().getDrawable(device.getDrawableId(),itemView.getContext().getTheme());
+            this.deviceImage.setImageDrawable(drawable);
             statusTextView.setOnClickListener(view -> {
                 DataContainer.getInstance().getDevice(device.getUuid());
                 listDevicesCallBack.onItemClick();

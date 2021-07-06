@@ -4,7 +4,9 @@ import com.example.myverysmarthome.model.Category;
 import com.example.myverysmarthome.model.devices.Device;
 import com.example.myverysmarthome.model.devices.DeviceType;
 import com.example.myverysmarthome.model.Group;
+import com.example.myverysmarthome.model.devices.Fan;
 import com.example.myverysmarthome.model.devices.Light;
+import com.example.myverysmarthome.model.devices.Plug;
 import com.example.myverysmarthome.model.devices.Thermostat;
 import com.example.myverysmarthome.model.User;
 
@@ -27,7 +29,7 @@ public final class DataContainer {
         categories = new ArrayList<>();
 
         devices.add(new Light("Gorne"));
-        devices.add(new Light("Gorne 2"));
+        devices.add(new Plug("Mikser"));
         devices.add(new Light("Gorne 3"));
 
         ArrayList<String> allDevices = new ArrayList<>();

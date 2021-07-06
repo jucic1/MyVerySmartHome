@@ -1,7 +1,9 @@
 package com.example.myverysmarthome.model.devices;
 
+import com.example.myverysmarthome.R;
+
 public class Thermostat extends Device<Integer> {
     public Thermostat(String name) {
-        super(name, 23);
+        super(name, 23, R.drawable.temperature);
     }
 }
