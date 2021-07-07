@@ -1,0 +1,12 @@
+{
+  "123" : {
+    "{\"id\" : \"12\", \"tile\" : \"kk\",  \"drawableId\" : 123, \"devicesInCategory\" : [\"123\", \"456\" ] }";
+  }
+}
+
+{
+  [
+    "{\"id\" : \"12\", \"tile\" : \"kk\",  \"drawableId\" : 123, \"devicesInCategory\" : [\"123\", \"456\" ] }",
+    "{\"id\" : \"12\", \"tile\" : \"kk\",  \"drawableId\" : 123, \"devicesInCategory\" : [\"123\", \"456\" ] }",
+  ]
+}
