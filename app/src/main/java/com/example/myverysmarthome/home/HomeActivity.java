@@ -47,8 +47,8 @@ public class HomeActivity extends AppCompatActivity implements ConfigureHubDevic
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
+        super.onPause();
         Gson gson = new Gson();
         ArrayList<Category> categories = DataContainer.getInstance().getCategories();
         ArrayList<Group> groups = DataContainer.getInstance().getGroups();
@@ -61,7 +61,6 @@ public class HomeActivity extends AppCompatActivity implements ConfigureHubDevic
         writeToFile("devices.txt", jsonDevices);
         writeToFile("groups.txt", jsonGroups);
     }
-
 
     public void writeToFile(String filename, String text) {
         FileOutputStream fos = null;

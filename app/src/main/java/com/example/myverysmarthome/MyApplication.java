@@ -31,7 +31,7 @@ import java.util.Optional;
 
 public class MyApplication extends Application {
     Gson gson;
-    
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -79,23 +79,6 @@ public class MyApplication extends Application {
         DataContainer.getInstance().setCategories(categories);
         DataContainer.getInstance().setDevices(devices);
         DataContainer.getInstance().setGroups(groups);
-    }
-
-
-
-    @Override
-    public void onTerminate() {
-        super.onTerminate();
-        ArrayList<Category> categories = DataContainer.getInstance().getCategories();
-        ArrayList<Group> groups = DataContainer.getInstance().getGroups();
-        ArrayList<Device> devices = DataContainer.getInstance().getDevices();
-
-        String jsonCategories = gson.toJson(categories);
-        String jsonGroups = gson.toJson(groups);
-        String jsonDevices = gson.toJson(devices);
-        writeToFile("categories.txt", jsonCategories);
-        writeToFile("devices.txt", jsonDevices);
-        writeToFile("groups.txt", jsonGroups);
     }
 
     public void writeToFile(String filename, String text) {

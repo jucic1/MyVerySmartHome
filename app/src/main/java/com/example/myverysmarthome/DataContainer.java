@@ -31,26 +31,6 @@ public final class DataContainer {
         groups = new ArrayList<>();
         devices = new ArrayList<>();
         categories = new ArrayList<>();
-//
-//        devices.add(new Light("Gorne"));
-//        devices.add(new Light("Gorne 2"));
-//        devices.add(new Light("Gorne 3"));
-//
-//        ArrayList<String> lightDevices = new ArrayList<>();
-//        for (Device device : devices) {
-//            lightDevices.add(device.getUuid());
-//        }
-//        Fan fan = new Fan("Kuchnia");
-//        devices.add(fan);
-//        ArrayList<String> allDevices = new ArrayList<>();
-//        for (Device device : devices) {
-//            allDevices.add(device.getUuid());
-//        }
-//        ArrayList<String> fanDevices = new ArrayList<>();
-//        fanDevices.add(fan.getUuid());
-//
-//        groups.add(new Group("Sypialnia", allDevices));
-//        groups.add(new Group("Sypialnia 2", allDevices));
     }
 
     public ArrayList<Device> getDevices() {
