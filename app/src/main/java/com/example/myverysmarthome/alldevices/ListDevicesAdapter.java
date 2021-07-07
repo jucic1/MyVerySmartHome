@@ -1,5 +1,6 @@
 package com.example.myverysmarthome.alldevices;
 
+import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,9 +13,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myverysmarthome.DataContainer;
 import com.example.myverysmarthome.R;
+import com.example.myverysmarthome.devicechangestatus.ChangeDeviceStatusActivity;
 import com.example.myverysmarthome.model.devices.Device;
 
 import java.util.ArrayList;
+
+import static androidx.core.content.ContextCompat.startActivity;
 
 public class ListDevicesAdapter extends RecyclerView.Adapter<ListDevicesAdapter.AllDevicesViewHolder> {
 
@@ -67,13 +71,12 @@ public class ListDevicesAdapter extends RecyclerView.Adapter<ListDevicesAdapter.
             Drawable drawable = itemView.getContext().getResources().getDrawable(device.getDrawableId(),itemView.getContext().getTheme());
             this.deviceImage.setImageDrawable(drawable);
             statusTextView.setOnClickListener(view -> {
-                DataContainer.getInstance().getDevice(device.getUuid());
-                listDevicesCallBack.onItemClick();
+                listDevicesCallBack.onItemClick(device);
             });
         }
     }
 
 }
 interface ListDevicesCallBack {
-    void onItemClick();
+    void onItemClick(Device device);
 }
