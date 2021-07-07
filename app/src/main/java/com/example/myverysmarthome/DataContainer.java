@@ -15,8 +15,6 @@ import java.util.ArrayList;
 
 public final class DataContainer {
     private static DataContainer INSTANCE;
-    private static Boolean isFirstLaunch = true;
-    public ArrayList<User> users;
     public ArrayList<Device> devices;
     public ArrayList<Group> groups;
     public ArrayList<Category> categories;
@@ -24,7 +22,6 @@ public final class DataContainer {
     public String mac;
 
     private DataContainer() {
-        users = new ArrayList<>();
         groups = new ArrayList<>();
         devices = new ArrayList<>();
         categories = new ArrayList<>();

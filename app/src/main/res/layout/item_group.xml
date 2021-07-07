@@ -15,18 +15,18 @@
 
         <TextView
             android:textColor="@color/white"
+            android:textSize="18dp"
             tools:text="This is some test"
             android:id="@+id/title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
-
     </LinearLayout>
 
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/groupRecyclerView"
-        android:paddingLeft="12dp"
+        android:paddingLeft="18dp"
         android:paddingTop="12dp"/>
 
     <TextView
