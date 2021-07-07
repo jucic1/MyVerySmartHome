@@ -11,6 +11,12 @@ import com.example.myverysmarthome.model.devices.Plug;
 import com.example.myverysmarthome.model.devices.Thermostat;
 import com.example.myverysmarthome.model.User;
 
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 
 public final class DataContainer {
@@ -25,32 +31,50 @@ public final class DataContainer {
         groups = new ArrayList<>();
         devices = new ArrayList<>();
         categories = new ArrayList<>();
+//
+//        devices.add(new Light("Gorne"));
+//        devices.add(new Light("Gorne 2"));
+//        devices.add(new Light("Gorne 3"));
+//
+//        ArrayList<String> lightDevices = new ArrayList<>();
+//        for (Device device : devices) {
+//            lightDevices.add(device.getUuid());
+//        }
+//        Fan fan = new Fan("Kuchnia");
+//        devices.add(fan);
+//        ArrayList<String> allDevices = new ArrayList<>();
+//        for (Device device : devices) {
+//            allDevices.add(device.getUuid());
+//        }
+//        ArrayList<String> fanDevices = new ArrayList<>();
+//        fanDevices.add(fan.getUuid());
+//
+//        groups.add(new Group("Sypialnia", allDevices));
+//        groups.add(new Group("Sypialnia 2", allDevices));
+    }
 
-        devices.add(new Light("Gorne"));
-        devices.add(new Light("Gorne 2"));
-        devices.add(new Light("Gorne 3"));
+    public ArrayList<Device> getDevices() {
+        return devices;
+    }
 
-        ArrayList<String> lightDevices = new ArrayList<>();
-        for (Device device : devices) {
-            lightDevices.add(device.getUuid());
-        }
-        Fan fan = new Fan("Kuchnia");
-        devices.add(fan);
-        ArrayList<String> allDevices = new ArrayList<>();
-        for (Device device : devices) {
-            allDevices.add(device.getUuid());
-        }
-        ArrayList<String> fanDevices = new ArrayList<>();
-        fanDevices.add(fan.getUuid());
+    public ArrayList<Group> getGroups() {
+        return groups;
+    }
 
-        groups.add(new Group("Sypialnia", allDevices));
-        groups.add(new Group("Sypialnia 2", allDevices));
-        categories.add(new Category("Swiatło", lightDevices, R.drawable.lightbulb));
-        categories.add(new Category("Termostat", new ArrayList<>(), R.drawable.temperature));
-        categories.add(new Category("Kamera", new ArrayList<>(), R.drawable.camera));
-        categories.add(new Category("Włącznik", new ArrayList<>(), R.drawable.plug));
-        categories.add(new Category("Wiatrak", fanDevices, R.drawable.fan));
-        categories.add(new Category("Wszystko", allDevices, R.drawable.all));
+    public ArrayList<Category> getCategories() {
+        return categories;
+    }
+
+    public void setDevices(ArrayList<Device> devices) {
+        this.devices = devices;
+    }
+
+    public void setGroups(ArrayList<Group> groups) {
+        this.groups = groups;
+    }
+
+    public void setCategories(ArrayList<Category> categories) {
+        this.categories = categories;
     }
 
     public String getHubUuid() {
@@ -147,9 +171,7 @@ public final class DataContainer {
             default:
                 throw new IllegalStateException();
         }
-
         devices.add(newDevice);
         return newDevice;
     }
-
 }

@@ -13,8 +13,6 @@ public class Category implements Serializable {
     int drawableId;
     ArrayList<String> devicesInCategory;
 
-//    public static String testJson = "{\"id\" : \"12\", \"tile\" : \"kk\",  \"drawableId\" : 123, \"devicesInCategory\" : [\"123\", \"456\" ] }";
-
     public Category(String title, ArrayList<String> bedroomDevices, int drawableId) {
         this.id = UUID.randomUUID().toString();
         this.title = title;

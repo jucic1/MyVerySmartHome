@@ -21,7 +21,14 @@ import com.example.myverysmarthome.configuredevice.ConfigureDeviceActivity;
 import com.example.myverysmarthome.databinding.ActivityHomeScreenBinding;
 import com.example.myverysmarthome.devicechangestatus.ChangeDeviceStatusActivity;
 import com.example.myverysmarthome.model.Category;
+import com.example.myverysmarthome.model.Group;
 import com.example.myverysmarthome.model.devices.Device;
+import com.google.gson.Gson;
+
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.util.ArrayList;
 
 public class HomeActivity extends AppCompatActivity implements ConfigureHubDeviceListener {
 
@@ -40,6 +47,43 @@ public class HomeActivity extends AppCompatActivity implements ConfigureHubDevic
     }
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Gson gson = new Gson();
+        ArrayList<Category> categories = DataContainer.getInstance().getCategories();
+        ArrayList<Group> groups = DataContainer.getInstance().getGroups();
+        ArrayList<Device> devices = DataContainer.getInstance().getDevices();
+
+        String jsonCategories = gson.toJson(categories);
+        String jsonGroups = gson.toJson(groups);
+        String jsonDevices = gson.toJson(devices);
+        writeToFile("categories.txt", jsonCategories);
+        writeToFile("devices.txt", jsonDevices);
+        writeToFile("groups.txt", jsonGroups);
+    }
+
+
+    public void writeToFile(String filename, String text) {
+        FileOutputStream fos = null;
+        try {
+            fos = openFileOutput(filename, MODE_PRIVATE); //only our app can access this file
+            fos.write(text.getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         if (checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_DENIED) {
             Log.d("permission", "permission denied to SEND_SMS - requesting it");
@@ -50,12 +94,10 @@ public class HomeActivity extends AppCompatActivity implements ConfigureHubDevic
 
         super.onCreate(savedInstanceState);
 
-//        getWindow().getStatusBarColor(ContextCompat.getColor(HomeActivity.this, R.color.darkBlue));
-
         activityHomeBinding = ActivityHomeScreenBinding.inflate(getLayoutInflater());
         setContentView(activityHomeBinding.getRoot());
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("SOME_KEY", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("MY_KEY", Context.MODE_PRIVATE);
         homeViewModel.configurationStatus.observe(this, configurationStatus -> {
             if (configurationStatus) {
                 dialog.dismiss();

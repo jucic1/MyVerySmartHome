@@ -27,7 +27,6 @@ public class DeviceMenuAdapter extends RecyclerView.Adapter<DeviceMenuAdapter.De
     DeviceMenuAdapter(CategoryItemClickListener categoryItemClickListener) {
         this.categoryItemClickListener = categoryItemClickListener;
         categoriesMenu = new ArrayList<>();
-//        categoriesMenu = DataContainer.getInstance().categories;
     }
 
     public void setItems(ArrayList<Category> categoriesMenu) {

@@ -22,7 +22,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".register.RegisterActivity"/>
         <activity android:name=".alldevices.ListDevicesActivity"/>
         <activity android:name=".addgroup.AddGroupActivity"/>
         <activity android:name=".configuredevice.ConfigureDeviceActivity"/>
