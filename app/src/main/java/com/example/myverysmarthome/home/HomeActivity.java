@@ -23,6 +23,7 @@ import com.example.myverysmarthome.devicechangestatus.ChangeDeviceStatusActivity
 import com.example.myverysmarthome.model.Category;
 import com.example.myverysmarthome.model.Group;
 import com.example.myverysmarthome.model.devices.Device;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
 import java.io.FileNotFoundException;
@@ -37,6 +38,7 @@ public class HomeActivity extends AppCompatActivity implements ConfigureHubDevic
     ConfigureHubDialogFragment dialog;
     DeviceMenuAdapter deviceMenuAdapter;
     GroupsAdapter groupsAdapter;
+    SharedPreferences sharedPreferences;
 
     int PERMISSION_REQUEST_CODE = 129436;
 
@@ -62,54 +64,40 @@ public class HomeActivity extends AppCompatActivity implements ConfigureHubDevic
         writeToFile("groups.txt", jsonGroups);
     }
 
-    public void writeToFile(String filename, String text) {
-        FileOutputStream fos = null;
-        try {
-            fos = openFileOutput(filename, MODE_PRIVATE); //only our app can access this file
-            fos.write(text.getBytes());
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (fos != null) {
-                try {
-                    fos.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-    }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
         if (checkSelfPermission(Manifest.permission.SEND_SMS) == PackageManager.PERMISSION_DENIED) {
             Log.d("permission", "permission denied to SEND_SMS - requesting it");
             String[] permissions = {Manifest.permission.SEND_SMS};
             requestPermissions(permissions, PERMISSION_REQUEST_CODE);
         }
-        sendSMS("+48699913004", "lol");
-
-        super.onCreate(savedInstanceState);
+//        sendSMS("+48699913004", "lol");
 
         activityHomeBinding = ActivityHomeScreenBinding.inflate(getLayoutInflater());
         setContentView(activityHomeBinding.getRoot());
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("MY_KEY", Context.MODE_PRIVATE);
-        homeViewModel.configurationStatus.observe(this, configurationStatus -> {
-            if (configurationStatus) {
-                dialog.dismiss();
-                sharedPreferences.edit().putBoolean("IS_DEVICE_CONFIGURED", configurationStatus).apply();
-            }
-        });
-        RecyclerView recyclerViewDeviceMenu = activityHomeBinding.deviceMenuRecyclerView;
 
-        if (!sharedPreferences.getBoolean("IS_DEVICE_CONFIGURED", false)) {
+        sharedPreferences = getApplicationContext().getSharedPreferences("MY_KEY", Context.MODE_PRIVATE);
+        if(!sharedPreferences.contains("GSM_MODULE_PHONE_NUMBER")) {
             dialog = new ConfigureHubDialogFragment();
             dialog.setCancelable(false);
             dialog.show(getSupportFragmentManager(), "SOME_TAG");
         }
+
+        homeViewModel.configurationStatus.observe(this, configurationStatus -> {
+            if (configurationStatus) {
+                dialog.dismiss();
+            }
+        });
+        homeViewModel.errorMessage.observe(this, errorMessage -> {
+            Snackbar.make(activityHomeBinding.getRoot(),errorMessage, Snackbar.LENGTH_LONG).show();
+//            activityCreateGroupBinding.nameLayout.setError(validationMessage);
+        });
+
+
+        RecyclerView recyclerViewDeviceMenu = activityHomeBinding.deviceMenuRecyclerView;
 
         deviceMenuAdapter = new DeviceMenuAdapter(new CategoryItemClickListener() {
             @Override
@@ -150,7 +138,29 @@ public class HomeActivity extends AppCompatActivity implements ConfigureHubDevic
     }
 
     @Override
-    public void onConfigure(String mac, String uuid) {
-        homeViewModel.configureHub(mac, uuid);
+    public void onConfigure(String phoneNumber) {
+        homeViewModel.configurePhoneNumber(phoneNumber,  sharedPreferences);
     }
+
+
+    public void writeToFile(String filename, String text) {
+        FileOutputStream fos = null;
+        try {
+            fos = openFileOutput(filename, MODE_PRIVATE); //only our app can access this file
+            fos.write(text.getBytes());
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            if (fos != null) {
+                try {
+                    fos.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }
+
 }

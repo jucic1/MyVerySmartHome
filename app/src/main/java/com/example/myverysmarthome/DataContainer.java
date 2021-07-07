@@ -24,8 +24,6 @@ public final class DataContainer {
     public ArrayList<Device> devices;
     public ArrayList<Group> groups;
     public ArrayList<Category> categories;
-    public String hubUuid;
-    public String mac;
 
     private DataContainer() {
         groups = new ArrayList<>();
@@ -57,21 +55,6 @@ public final class DataContainer {
         this.categories = categories;
     }
 
-    public String getHubUuid() {
-        return hubUuid;
-    }
-
-    public void setHubUuid(String hubUuid) {
-        this.hubUuid = hubUuid;
-    }
-
-    public String getMac() {
-        return mac;
-    }
-
-    public void setMac(String mac) {
-        this.mac = mac;
-    }
 
     public Device getDevice(String uuid) {
         for (Device device : DataContainer.getInstance().devices) {

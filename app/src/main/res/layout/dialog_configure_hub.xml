@@ -2,15 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:paddingStart="8dp"
     android:paddingEnd="8dp"
+    android:padding="8dp"
+    android:layout_margin="8dp"
     android:id="@+id/logInContainer"
     android:orientation="vertical">
 
     <LinearLayout
         android:gravity="center"
         android:orientation="vertical"
-        android:layout_width="400dp"
+        android:layout_width="wrap_content"
         android:layout_height="400dp">
 
         <LinearLayout
@@ -18,56 +21,40 @@
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <LinearLayout
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="5">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="MAC urządzenia" />
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:id="@+id/macLayout">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="hint"
-                        android:id="@+id/macInput"/>
-                </com.google.android.material.textfield.TextInputLayout>
-
-            </LinearLayout>
+                android:gravity="center"
+                android:textSize="20dp"
+                android:layout_marginBottom="20dp"
+                android:text= "Podaj numer telefonu karty SIM modułu GSM"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
+                android:layout_marginBottom="25dp"
                 android:weightSum="5">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:text="Hub UUID" />
+                    android:layout_weight="1.5"
+                    android:textSize="16dp"
+                    android:text="Numer telefonu:" />
 
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="3"
-                    android:id="@+id/hubLayout">
+                    android:layout_weight="3.5"
+                    app:boxStrokeColor="@color/orange"
+                    android:id="@+id/phoneNumberLayout">
 
                     <com.google.android.material.textfield.TextInputEditText
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="hint"
-                        android:id="@+id/hubInput"/>
+                        android:hint="np. 123456789"
+                        android:id="@+id/phoneNumberInput"/>
                 </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
         </LinearLayout>
