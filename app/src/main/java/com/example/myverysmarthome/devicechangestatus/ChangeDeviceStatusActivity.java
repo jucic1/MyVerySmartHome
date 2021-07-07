@@ -53,6 +53,7 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
 
         activityChangeDeviceStatusBinding.deviceNameText.setText(item.getName());
         activityChangeDeviceStatusBinding.deviceStatusText.setText(item.getValue().toString());
+        activityChangeDeviceStatusBinding.deviceStateImage.setImageDrawable(getDrawable(item.getDrawableId()));
 
         getElement(item);
 
@@ -72,7 +73,6 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
         } else {
             throw new IllegalStateException("Not known instance type");
         }
-
     }
 
     private void addRadioButtons(Device device) {
