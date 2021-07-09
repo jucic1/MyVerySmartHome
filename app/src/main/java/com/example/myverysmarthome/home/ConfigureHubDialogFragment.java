@@ -46,7 +46,7 @@ public class ConfigureHubDialogFragment extends DialogFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.dialog_configure_hub, container, false);
+        View view = inflater.inflate(R.layout.dialog_add_phone, container, false);
         return view;
     }
 }
