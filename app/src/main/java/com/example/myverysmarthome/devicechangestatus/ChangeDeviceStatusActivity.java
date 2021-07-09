@@ -2,6 +2,7 @@ package com.example.myverysmarthome.devicechangestatus;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.ColorStateList;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -26,13 +27,13 @@ import com.example.myverysmarthome.model.devices.Light;
 import com.example.myverysmarthome.model.devices.Plug;
 import com.example.myverysmarthome.model.devices.Thermostat;
 import com.google.android.material.slider.Slider;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
 public class ChangeDeviceStatusActivity extends AppCompatActivity {
     final static String EXTRA_ITEM_KEY = "extra_item_key";
-
     public static Intent getIntent(Context context, Device item) {
         Intent intent = new Intent(context, ChangeDeviceStatusActivity.class);
         intent.putExtra(EXTRA_ITEM_KEY, item);
@@ -41,6 +42,7 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
 
     ActivityChangeDeviceStatusBinding activityChangeDeviceStatusBinding;
     ChangeDeviceStatusViewModel changeDeviceStatusViewModel;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +50,8 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
         activityChangeDeviceStatusBinding = ActivityChangeDeviceStatusBinding.inflate(getLayoutInflater());
         setContentView(activityChangeDeviceStatusBinding.getRoot());
         changeDeviceStatusViewModel = new ViewModelProvider(this).get(ChangeDeviceStatusViewModel.class);
+
+        sharedPreferences = getApplicationContext().getSharedPreferences("MY_KEY", Context.MODE_PRIVATE);
 
         final Device item = (Device) getIntent().getSerializableExtra(EXTRA_ITEM_KEY);
 
@@ -60,6 +64,14 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
         activityChangeDeviceStatusBinding.forgetDevice.setOnClickListener(view -> {
             changeDeviceStatusViewModel.removeItem(item);
             finish();
+        });
+
+        changeDeviceStatusViewModel.feedback.observe(this, isSuccess -> {
+            if(isSuccess) {
+                Snackbar.make(activityChangeDeviceStatusBinding.getRoot(),"Wiadomość została wysłana", Snackbar.LENGTH_LONG).show();
+            }else{
+                Snackbar.make(activityChangeDeviceStatusBinding.getRoot(),"Wiadomość nie została wysłana", Snackbar.LENGTH_LONG).show();
+            }
         });
     }
 
@@ -110,6 +122,7 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
                 Level newLevel = Level.valueOf((String) checkedRadioButton.getText());
                 DataContainer.getInstance().getDevice(device.getUuid()).setValue(newLevel);
                 activityChangeDeviceStatusBinding.deviceStatusText.setText(checkedRadioButton.getText());
+                changeDeviceStatusViewModel.sendStatusChange(device.getName(), newLevel.toString(), "lms", sharedPreferences);
             }
         });
         activityChangeDeviceStatusBinding.container.addView(radioGroup, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -129,6 +142,7 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
                 DataContainer.getInstance().getDevice(device.getUuid()).setValue(value);
                 Float newStatus = (Float) DataContainer.getInstance().getDevice(device.getUuid()).getValue();
                 activityChangeDeviceStatusBinding.deviceStatusText.setText(newStatus.toString());
+                changeDeviceStatusViewModel.sendStatusChange(device.getName(), newStatus.toString(), "float", sharedPreferences);
             }
         });
         activityChangeDeviceStatusBinding.container.addView(slider, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -147,7 +161,7 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
                 DataContainer.getInstance().getDevice(device.getUuid()).setValue(status);
                 Boolean newStatus = (Boolean) DataContainer.getInstance().getDevice(device.getUuid()).getValue();
                 activityChangeDeviceStatusBinding.deviceStatusText.setText(newStatus.toString());
-//                    changeDeviceStatusViewModel.statusChange(item.getUuid(), status);
+                changeDeviceStatusViewModel.sendStatusChange(device.getName(), newStatus.toString(), "boolean", sharedPreferences);
             }
         });
         activityChangeDeviceStatusBinding.container.addView(someSwitch, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);

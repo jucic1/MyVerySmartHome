@@ -59,6 +59,7 @@ public class HomeActivity extends AppCompatActivity implements ConfigureHubDevic
         String jsonCategories = gson.toJson(categories);
         String jsonGroups = gson.toJson(groups);
         String jsonDevices = gson.toJson(devices);
+        
         writeToFile("categories.txt", jsonCategories);
         writeToFile("devices.txt", jsonDevices);
         writeToFile("groups.txt", jsonGroups);
@@ -73,7 +74,6 @@ public class HomeActivity extends AppCompatActivity implements ConfigureHubDevic
             String[] permissions = {Manifest.permission.SEND_SMS};
             requestPermissions(permissions, PERMISSION_REQUEST_CODE);
         }
-//        sendSMS("+48699913004", "lol");
 
         activityHomeBinding = ActivityHomeScreenBinding.inflate(getLayoutInflater());
         setContentView(activityHomeBinding.getRoot());
@@ -125,16 +125,6 @@ public class HomeActivity extends AppCompatActivity implements ConfigureHubDevic
         activityHomeBinding.addGroupImage.setOnClickListener(view -> {
             startActivity(new Intent(HomeActivity.this, AddGroupActivity.class));
         });
-    }
-
-    public void sendSMS(String phoneNo, String msg) {
-        try {
-            SmsManager smsManager = SmsManager.getDefault();
-            smsManager.sendTextMessage(phoneNo, null, msg, null, null);
-            System.out.println();
-        } catch (Exception ex) {
-            System.out.println("x");
-        }
     }
 
     @Override
