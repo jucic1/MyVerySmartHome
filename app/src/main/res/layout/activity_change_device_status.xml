@@ -23,17 +23,6 @@
                 android:src="@color/black"
                 android:layout_marginBottom="40dp"/>
 
-
-        <!--        <Switch-->
-        <!--            android:id="@+id/switch1"-->
-        <!--            android:layout_width="wrap_content"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:switchMinWidth="56dp"-->
-        <!--            android:checked="true"-->
-        <!--            android:textOff="OFF"-->
-        <!--            android:textOn="ON"/>-->
-
-
         <TextView
             android:textSize="32sp"
             android:textStyle="bold"

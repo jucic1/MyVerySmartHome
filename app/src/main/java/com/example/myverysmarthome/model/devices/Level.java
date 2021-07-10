@@ -1,10 +1,19 @@
 package com.example.myverysmarthome.model.devices;
 
+import java.util.Arrays;
+import java.util.List;
+
 public enum Level {
-    LIGHT, MEDIUM, INTENSE;
+    OFF, LIGHT, MEDIUM, INTENSE;
+
+    public static List<String> getAllInPolish() {
+        return Arrays.asList("WYŁĄCZ", "LEKKI", "ŚREDNI", "MOCNY");
+    }
 
     public String toPolish() {
         switch (this) {
+            case OFF:
+                return "WYŁĄCZ";
             case LIGHT:
                 return "LEKKI";
             case MEDIUM:
@@ -18,6 +27,8 @@ public enum Level {
 
     public static Level toEnglish(String level) {
         switch (level) {
+            case "WYŁĄCZ":
+                return OFF;
             case "LEKKI":
                 return LIGHT;
             case "ŚREDNI":
