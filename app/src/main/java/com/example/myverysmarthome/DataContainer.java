@@ -10,6 +10,7 @@ import com.example.myverysmarthome.model.devices.Light;
 import com.example.myverysmarthome.model.devices.Plug;
 import com.example.myverysmarthome.model.devices.Thermostat;
 
+import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 
 public final class DataContainer {
@@ -26,6 +27,16 @@ public final class DataContainer {
 
     public ArrayList<Device> getDevices() {
         return devices;
+    }
+
+    public ArrayList<Device> getDevicesOfType(DeviceType deviceType) {
+        ArrayList<Device> result = new ArrayList<>();
+        for(Device device: devices) {
+            if(device.getClass().getSimpleName().toLowerCase().equals(deviceType.name().toLowerCase())) {
+                result.add(device);
+            }
+        }
+        return result;
     }
 
     public ArrayList<Group> getGroups() {
@@ -130,4 +141,5 @@ public final class DataContainer {
         devices.add(newDevice);
         return newDevice;
     }
+
 }

@@ -23,6 +23,7 @@ import com.example.myverysmarthome.devicechangestatus.ChangeDeviceStatusActivity
 import com.example.myverysmarthome.model.Category;
 import com.example.myverysmarthome.model.Group;
 import com.example.myverysmarthome.model.devices.Device;
+import com.example.myverysmarthome.model.devices.DeviceType;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.gson.Gson;
 
@@ -53,16 +54,18 @@ public class HomeActivity extends AppCompatActivity implements ConfigureHubDevic
         super.onPause();
         Gson gson = new Gson();
         ArrayList<Category> categories = DataContainer.getInstance().getCategories();
-        ArrayList<Group> groups = DataContainer.getInstance().getGroups();
-        ArrayList<Device> devices = DataContainer.getInstance().getDevices();
-
         String jsonCategories = gson.toJson(categories);
-        String jsonGroups = gson.toJson(groups);
-        String jsonDevices = gson.toJson(devices);
-        
         writeToFile("categories.txt", jsonCategories);
-        writeToFile("devices.txt", jsonDevices);
+
+        ArrayList<Group> groups = DataContainer.getInstance().getGroups();
+        String jsonGroups = gson.toJson(groups);
         writeToFile("groups.txt", jsonGroups);
+
+        for(DeviceType deviceType : DeviceType.values()) {
+            ArrayList<Device> devices = DataContainer.getInstance().getDevicesOfType(deviceType);
+            String jsonDevices = gson.toJson(devices);
+            writeToFile(deviceType.toString().toLowerCase() + ".txt", jsonDevices);
+        }
     }
 
     @Override
@@ -79,7 +82,7 @@ public class HomeActivity extends AppCompatActivity implements ConfigureHubDevic
         setContentView(activityHomeBinding.getRoot());
         homeViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
 
-        sharedPreferences = getApplicationContext().getSharedPreferences("MY_KEY", Context.MODE_PRIVATE);
+        sharedPreferences = getApplicationContext().getSharedPreferences("PRIMITIVE", Context.MODE_PRIVATE);
         if(!sharedPreferences.contains("GSM_MODULE_PHONE_NUMBER")) {
             dialog = new ConfigureHubDialogFragment();
             dialog.setCancelable(false);

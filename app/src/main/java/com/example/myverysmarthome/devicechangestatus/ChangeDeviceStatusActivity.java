@@ -51,7 +51,7 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
         setContentView(activityChangeDeviceStatusBinding.getRoot());
         changeDeviceStatusViewModel = new ViewModelProvider(this).get(ChangeDeviceStatusViewModel.class);
 
-        sharedPreferences = getApplicationContext().getSharedPreferences("MY_KEY", Context.MODE_PRIVATE);
+        sharedPreferences = getApplicationContext().getSharedPreferences("PRIMITIVE", Context.MODE_PRIVATE);
 
         final Device item = (Device) getIntent().getSerializableExtra(EXTRA_ITEM_KEY);
 

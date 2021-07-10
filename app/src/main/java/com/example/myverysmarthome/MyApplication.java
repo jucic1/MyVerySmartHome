@@ -8,9 +8,13 @@ import android.os.Environment;
 import com.example.myverysmarthome.home.ConfigureHubDialogFragment;
 import com.example.myverysmarthome.model.Category;
 import com.example.myverysmarthome.model.Group;
+import com.example.myverysmarthome.model.devices.Camera;
 import com.example.myverysmarthome.model.devices.Device;
+import com.example.myverysmarthome.model.devices.DeviceType;
 import com.example.myverysmarthome.model.devices.Fan;
 import com.example.myverysmarthome.model.devices.Light;
+import com.example.myverysmarthome.model.devices.Plug;
+import com.example.myverysmarthome.model.devices.Thermostat;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -23,6 +27,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
+import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Array;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -36,7 +41,7 @@ public class MyApplication extends Application {
     public void onCreate() {
         super.onCreate();
         gson = new Gson();
-        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("MY_KEY", Context.MODE_PRIVATE);
+        SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("PRIMITIVE", Context.MODE_PRIVATE);
         if (!sharedPreferences.getBoolean("LAUNCH", false)) {
             ArrayList<Category> newCategories = new ArrayList<>();
             newCategories.add(new Category("Swiatło", new ArrayList<>(), R.drawable.lightbulb));
@@ -47,8 +52,11 @@ public class MyApplication extends Application {
             newCategories.add(new Category("Wszystko", new ArrayList<>(), R.drawable.all));
             String json = gson.toJson(newCategories);
             writeToFile("categories.txt", json);
-            writeToFile("devices.txt", "");
             writeToFile("groups.txt", "");
+
+            for (DeviceType deviceType : DeviceType.values()) {
+                writeToFile(deviceType.toString().toLowerCase() + ".txt", "");
+            }
 
             SharedPreferences.Editor edit = sharedPreferences.edit();
             edit.putBoolean("LAUNCH", true);
@@ -56,28 +64,56 @@ public class MyApplication extends Application {
         }
 
         String fromJsonCategories = readFromFile("categories.txt");
-        Type listTypeCategory = new TypeToken<ArrayList<Category>>() {}.getType();
+        Type listTypeCategory = new TypeToken<ArrayList<Category>>() {
+        }.getType();
         ArrayList<Category> categories = gson.fromJson(fromJsonCategories, listTypeCategory);
-        if (categories == null ) {
+        if (categories == null) {
             categories = new ArrayList<>();
         }
 
-        String fromJsonDevices = readFromFile("devices.txt");
-        Type listTypeDevice = new TypeToken<ArrayList<Device>>() {}.getType();
-        ArrayList<Device> devices = gson.fromJson(fromJsonDevices, listTypeDevice);
-        if (devices == null ) {
-            devices = new ArrayList<>();
-        }
-
         String fromJsonGroups = readFromFile("groups.txt");
-        Type listTypeGroup = new TypeToken<ArrayList<Group>>() {}.getType();
+        Type listTypeGroup = new TypeToken<ArrayList<Group>>() {
+        }.getType();
         ArrayList<Group> groups = gson.fromJson(fromJsonGroups, listTypeGroup);
-        if (groups == null ) {
+        if (groups == null) {
             groups = new ArrayList<>();
         }
 
+        ArrayList<Device> allDevices = new ArrayList<>();
+        for (DeviceType deviceType : DeviceType.values()) {
+            String fromJsonDevices = readFromFile(deviceType.toString().toLowerCase() + ".txt");
+            Type listTypeDevice;
+            switch (deviceType) {
+                case LIGHT:
+                    listTypeDevice = new TypeToken<ArrayList<Light>>() {
+                    }.getType();
+                    break;
+                case THERMOSTAT:
+                    listTypeDevice = new TypeToken<ArrayList<Thermostat>>() {
+                    }.getType();
+                    break;
+                case PLUG:
+                    listTypeDevice = new TypeToken<ArrayList<Plug>>() {
+                    }.getType();
+                    break;
+                case CAMERA:
+                    listTypeDevice = new TypeToken<ArrayList<Camera>>() {
+                    }.getType();
+                    break;
+                case FAN:
+                    listTypeDevice = new TypeToken<ArrayList<Fan>>() {
+                    }.getType();
+                    break;
+                default:
+                    throw new IllegalStateException();
+            }
+            ArrayList<Device> devices = gson.fromJson(fromJsonDevices, listTypeDevice);
+            if (devices != null) {
+                allDevices.addAll(devices);
+            }
+        }
         DataContainer.getInstance().setCategories(categories);
-        DataContainer.getInstance().setDevices(devices);
+        DataContainer.getInstance().setDevices(allDevices);
         DataContainer.getInstance().setGroups(groups);
     }
 

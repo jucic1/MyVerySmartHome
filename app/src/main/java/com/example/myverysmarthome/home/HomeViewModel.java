@@ -12,7 +12,10 @@ public class HomeViewModel extends ViewModel {
     MutableLiveData<String> errorMessage = new MutableLiveData<>();
 
     public void configurePhoneNumber(String phoneNumber, SharedPreferences sharedPreferences) {
-        if(phoneNumber.matches("[0-9]+") && phoneNumber.length() == 9) {
+        if (phoneNumber.equals("")) {
+            errorMessage.setValue("Pole numer telefonu nie może być puste");
+            configurationStatus.setValue(false);
+        } else if(phoneNumber.matches("[0-9]+") && phoneNumber.length() == 9) {
             sharedPreferences.edit().putString("GSM_MODULE_PHONE_NUMBER", phoneNumber).apply();
             configurationStatus.setValue(true);
         } else {
