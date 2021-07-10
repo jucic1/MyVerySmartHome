@@ -22,7 +22,7 @@ public class ConfigureDeviceViewModel extends ViewModel {
             snackBarMessage.setValue("Urządzenie musi zostać przypisane do kategorii");
         } else {
             if (isNameUnique(name)) {
-                Device newDevice = DataContainer.getInstance().createDevice(name, category.getValue());
+                DataContainer.getInstance().createDevice(name, category.getValue());
                 configureDevice.setValue(true);
             } else {
                 deviceNameValidation.setValue("Urządzenie o takiej nazwie już istnieje");

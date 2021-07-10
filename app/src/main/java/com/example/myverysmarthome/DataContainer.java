@@ -27,7 +27,7 @@ public final class DataContainer {
         categories.add(new Category("Termostat", R.drawable.temperature, DeviceType.THERMOSTAT));
         categories.add(new Category("Kamera",  R.drawable.camera, DeviceType.CAMERA));
         categories.add(new Category("Włącznik", R.drawable.plug, DeviceType.PLUG));
-        categories.add(new Category("Wiatrak",  R.drawable.fan, DeviceType.PLUG));
+        categories.add(new Category("Wiatrak",  R.drawable.fan, DeviceType.FAN));
         categories.add(new Category("Wszystko",  R.drawable.all, null));
     }
 
@@ -47,10 +47,6 @@ public final class DataContainer {
 
     public ArrayList<Group> getGroups() {
         return groups;
-    }
-
-    public ArrayList<Category> getCategories() {
-        return categories;
     }
 
     public void setDevices(ArrayList<Device> devices) {

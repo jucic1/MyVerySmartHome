@@ -15,6 +15,8 @@ import com.example.myverysmarthome.DataContainer;
 import com.example.myverysmarthome.R;
 import com.example.myverysmarthome.devicechangestatus.ChangeDeviceStatusActivity;
 import com.example.myverysmarthome.model.devices.Device;
+import com.example.myverysmarthome.model.devices.Fan;
+import com.example.myverysmarthome.model.devices.Level;
 
 import java.util.ArrayList;
 
@@ -71,7 +73,11 @@ public class ListDevicesAdapter extends RecyclerView.Adapter<ListDevicesAdapter.
 
         void bind(Device device, ListDevicesCallBack listDevicesCallBack) {
             this.nameTextView.setText(device.getName());
-            this.statusTextView.setText(device.getValue().toString());
+            if(device instanceof Fan) {
+                this.statusTextView.setText(((Level)device.getValue()).toPolish());
+            } else {
+                this.statusTextView.setText(device.getValue().toString());
+            }
             int drawableId = DataContainer.getInstance().getCategoryForDevice(device).getDrawableId();
             Drawable drawable = itemView.getContext().getResources().getDrawable(drawableId,itemView.getContext().getTheme());
             this.deviceImage.setImageDrawable(drawable);

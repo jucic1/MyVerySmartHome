@@ -34,6 +34,7 @@ import java.util.Arrays;
 
 public class ChangeDeviceStatusActivity extends AppCompatActivity {
     final static String EXTRA_ITEM_KEY = "extra_item_key";
+
     public static Intent getIntent(Context context, Device item) {
         Intent intent = new Intent(context, ChangeDeviceStatusActivity.class);
         intent.putExtra(EXTRA_ITEM_KEY, item);
@@ -56,7 +57,11 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
         final Device item = (Device) getIntent().getSerializableExtra(EXTRA_ITEM_KEY);
 
         activityChangeDeviceStatusBinding.deviceNameText.setText(item.getName());
-        activityChangeDeviceStatusBinding.deviceStatusText.setText(item.getValue().toString());
+        String status = item.getValue().toString();
+        if (item instanceof Fan) {
+            status = ((Level) item.getValue()).toPolish();
+        }
+        activityChangeDeviceStatusBinding.deviceStatusText.setText(status);
         int drawableId = DataContainer.getInstance().getCategoryForDevice(item).getDrawableId();
         activityChangeDeviceStatusBinding.deviceStateImage.setImageDrawable(getDrawable(drawableId));
 
@@ -67,12 +72,8 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
             finish();
         });
 
-        changeDeviceStatusViewModel.feedback.observe(this, isSuccess -> {
-            if(isSuccess) {
-                Snackbar.make(activityChangeDeviceStatusBinding.getRoot(),"Wiadomość została wysłana", Snackbar.LENGTH_LONG).show();
-            }else{
-                Snackbar.make(activityChangeDeviceStatusBinding.getRoot(),"Wiadomość nie została wysłana", Snackbar.LENGTH_LONG).show();
-            }
+        changeDeviceStatusViewModel.feedback.observe(this, message -> {
+            Snackbar.make(activityChangeDeviceStatusBinding.getRoot(), message, Snackbar.LENGTH_LONG).show();
         });
     }
 
@@ -108,7 +109,7 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
             categoryRadioButton.setTextSize(18);
             categoryRadioButton.setId(View.generateViewId());
             categoryRadioButton.setPadding(15, 15, 15, 15);
-            categoryRadioButton.setText(level.toString());
+            categoryRadioButton.setText(level.toPolish());
             categoryRadioButton.setButtonTintList(colorStateList);
             if (level == currentLevel) {
                 idOfCheckedButton = categoryRadioButton.getId();
@@ -120,14 +121,13 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 RadioButton checkedRadioButton = (RadioButton) group.findViewById(checkedId);
-                Level newLevel = Level.valueOf((String) checkedRadioButton.getText());
+                Level newLevel = Level.toEnglish((String) checkedRadioButton.getText());
                 DataContainer.getInstance().getDevice(device.getUuid()).setValue(newLevel);
                 activityChangeDeviceStatusBinding.deviceStatusText.setText(checkedRadioButton.getText());
-                changeDeviceStatusViewModel.sendStatusChange(device.getName(), newLevel.toString(), "lms", sharedPreferences);
+                changeDeviceStatusViewModel.sendStatusChange(device.getName(), newLevel.toString().toLowerCase(), "set_intensity", sharedPreferences);
             }
         });
         activityChangeDeviceStatusBinding.container.addView(radioGroup, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
     }
 
     private void addSlider(Device device) {
@@ -144,7 +144,7 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
                 Float newStatus = (Float) DataContainer.getInstance().getDevice(device.getUuid()).getValue();
                 newStatus = Float.valueOf(String.format("%.2f", newStatus));
                 activityChangeDeviceStatusBinding.deviceStatusText.setText(newStatus.toString());
-                changeDeviceStatusViewModel.sendStatusChange(device.getName(), newStatus.toString(), "float", sharedPreferences);
+                changeDeviceStatusViewModel.sendStatusChange(device.getName(), newStatus.toString(), "set_temperature", sharedPreferences);
             }
         });
         activityChangeDeviceStatusBinding.container.addView(slider, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -162,7 +162,7 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
                 DataContainer.getInstance().getDevice(device.getUuid()).setValue(status);
                 Boolean newStatus = (Boolean) DataContainer.getInstance().getDevice(device.getUuid()).getValue();
                 activityChangeDeviceStatusBinding.deviceStatusText.setText(newStatus.toString());
-                changeDeviceStatusViewModel.sendStatusChange(device.getName(), newStatus.toString(), "boolean", sharedPreferences);
+                changeDeviceStatusViewModel.sendStatusChange(device.getName(), newStatus.toString(), "activate", sharedPreferences);
             }
         });
         activityChangeDeviceStatusBinding.container.addView(someSwitch, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);

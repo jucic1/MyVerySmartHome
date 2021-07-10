@@ -9,18 +9,9 @@ public class Group {
     String title;
     ArrayList<String> devicesInGroup;
 
-    public Group(String title) {
-        this.title = title;
-        this.devicesInGroup = new ArrayList<>();
-    }
-
     public Group(String title, ArrayList<String> devices) {
         this.title = title;
         this.devicesInGroup = devices;
-    }
-
-    public void addDevice(String deviceUUID) {
-        devicesInGroup.add(deviceUUID);
     }
 
     public String getTitle() {
