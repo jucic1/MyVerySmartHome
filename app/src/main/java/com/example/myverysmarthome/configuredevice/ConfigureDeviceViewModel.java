@@ -22,31 +22,12 @@ public class ConfigureDeviceViewModel extends ViewModel {
             snackBarMessage.setValue("Urządzenie musi zostać przypisane do kategorii");
         } else {
             if (isNameUnique(name)) {
-                Device newDevice = DataContainer.getInstance().createDevice(name, fromCategory(category.getValue().getTitle()));
-                DataContainer.getInstance().getCategory(category.getValue().getId()).addDevice(newDevice.getUuid());
-                DataContainer.getInstance().getAllCategory().addDevice(newDevice.getUuid());
+                Device newDevice = DataContainer.getInstance().createDevice(name, category.getValue());
                 configureDevice.setValue(true);
             } else {
                 deviceNameValidation.setValue("Urządzenie o takiej nazwie już istnieje");
                 configureDevice.setValue(false);
             }
-        }
-    }
-
-    private DeviceType fromCategory(String value){
-        switch (value) {
-            case "Swiatło":
-                return DeviceType.LIGHT;
-            case "Termostat":
-                return DeviceType.THERMOSTAT;
-            case "Włącznik":
-                return DeviceType.PLUG;
-            case "Kamera":
-                return DeviceType.CAMERA;
-            case "Wiatrak":
-                return DeviceType.FAN;
-            default:
-                throw new IllegalArgumentException();
         }
     }
 

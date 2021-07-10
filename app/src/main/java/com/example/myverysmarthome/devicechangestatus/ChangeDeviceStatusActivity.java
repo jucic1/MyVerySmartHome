@@ -57,7 +57,8 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
 
         activityChangeDeviceStatusBinding.deviceNameText.setText(item.getName());
         activityChangeDeviceStatusBinding.deviceStatusText.setText(item.getValue().toString());
-        activityChangeDeviceStatusBinding.deviceStateImage.setImageDrawable(getDrawable(item.getDrawableId()));
+        int drawableId = DataContainer.getInstance().getCategoryForDevice(item).getDrawableId();
+        activityChangeDeviceStatusBinding.deviceStateImage.setImageDrawable(getDrawable(drawableId));
 
         getElement(item);
 

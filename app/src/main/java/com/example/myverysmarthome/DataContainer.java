@@ -23,6 +23,12 @@ public final class DataContainer {
         groups = new ArrayList<>();
         devices = new ArrayList<>();
         categories = new ArrayList<>();
+        categories.add(new Category("Światło", R.drawable.lightbulb, DeviceType.LIGHT));
+        categories.add(new Category("Termostat", R.drawable.temperature, DeviceType.THERMOSTAT));
+        categories.add(new Category("Kamera",  R.drawable.camera, DeviceType.CAMERA));
+        categories.add(new Category("Włącznik", R.drawable.plug, DeviceType.PLUG));
+        categories.add(new Category("Wiatrak",  R.drawable.fan, DeviceType.PLUG));
+        categories.add(new Category("Wszystko",  R.drawable.all, null));
     }
 
     public ArrayList<Device> getDevices() {
@@ -55,11 +61,6 @@ public final class DataContainer {
         this.groups = groups;
     }
 
-    public void setCategories(ArrayList<Category> categories) {
-        this.categories = categories;
-    }
-
-
     public Device getDevice(String uuid) {
         for (Device device : DataContainer.getInstance().devices) {
             if (device.getUuid().equals(uuid)) {
@@ -81,29 +82,32 @@ public final class DataContainer {
     }
 
     public void removeDevice(String uuid) {
-        for (Device device : devices) {
-            if (device.getUuid().equals(uuid)) {
-                devices.remove(device);
+        int indexToRemove = -1;
+        for (int i = 0; i< devices.size(); i++) {
+            if (devices.get(i).getUuid().equals(uuid)) {
+                indexToRemove = i;
             }
         }
+        devices.remove(indexToRemove);
     }
 
-    public Category getAllCategory() {
-        for (Category category : categories) {
-            if (category.getTitle().equals("Wszystko")) {
+    public Category getCategoryForDevice(Device device) {
+        for(Category category: categories) {
+            if(category.getUuid().equals(device.getCategoryId())) {
                 return category;
             }
         }
         return null;
     }
 
-    public Category getCategory(String id) {
-        for (Category category : categories) {
-            if (category.getId().equals(id)) {
-                return category;
+    public ArrayList<Device> getDevicesForCategory(Category category) {
+        ArrayList<Device> result = new ArrayList<>();
+        for(Device device : devices) {
+            if(device.getCategoryId().equals(category.getUuid())) {
+                result.add(device);
             }
         }
-        return null;
+        return result;
     }
 
     public void createGroup(String name, ArrayList<Device> groupDevices) {
@@ -117,23 +121,23 @@ public final class DataContainer {
         return result;
     }
 
-    public Device createDevice(String name, DeviceType deviceType) {
+    public Device createDevice(String name, Category category) {
         Device newDevice;
-        switch (deviceType) {
+        switch (category.getDeviceType()) {
             case LIGHT:
-                newDevice = new Light(name);
+                newDevice = new Light(name, category.getUuid());
                 break;
             case THERMOSTAT:
-                newDevice = new Thermostat(name);
+                newDevice = new Thermostat(name, category.getUuid());
                 break;
             case PLUG:
-                newDevice = new Plug(name);
+                newDevice = new Plug(name, category.getUuid());
                 break;
             case CAMERA:
-                newDevice = new Camera(name);
+                newDevice = new Camera(name, category.getUuid());
                 break;
             case FAN:
-                newDevice = new Fan(name);
+                newDevice = new Fan(name, category.getUuid());
                 break;
             default:
                 throw new IllegalStateException();

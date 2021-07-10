@@ -9,10 +9,13 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myverysmarthome.DataContainer;
 import com.example.myverysmarthome.databinding.ActivityListDevicesBinding;
 import com.example.myverysmarthome.devicechangestatus.ChangeDeviceStatusActivity;
 import com.example.myverysmarthome.model.Category;
 import com.example.myverysmarthome.model.devices.Device;
+
+import java.util.ArrayList;
 
 public class ListDevicesActivity extends AppCompatActivity {
     final static String MENU_ITEM_KEY = "menu_item_key";
@@ -30,6 +33,13 @@ public class ListDevicesActivity extends AppCompatActivity {
     Category category;
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        listDevicesAdapter.setItems(getDevicesForCategory(category));
+        listDevicesAdapter.refresh();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         activityListDevicesBinding = ActivityListDevicesBinding.inflate(getLayoutInflater());
@@ -39,17 +49,22 @@ public class ListDevicesActivity extends AppCompatActivity {
         RecyclerView recyclerViewAllDevices = activityListDevicesBinding.allDevicesRecyclerView;
 
         recyclerViewAllDevices.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-        listDevicesAdapter = new ListDevicesAdapter(new ListDevicesCallBack(){
-            @Override
-            public void onItemClick(Device device) {
-                startActivity(ChangeDeviceStatusActivity.getIntent(getApplicationContext(), device));
-            }
+        listDevicesAdapter = new ListDevicesAdapter(device -> {
+            startActivity(ChangeDeviceStatusActivity.getIntent(getApplicationContext(), device));
         });
         recyclerViewAllDevices.setAdapter(listDevicesAdapter);
 
         category = (Category) getIntent().getSerializableExtra(MENU_ITEM_KEY);
 
         activityListDevicesBinding.categoryTextView.setText(category.getTitle());
-        listDevicesAdapter.setItems(category.getDevicesInGroup());
+        listDevicesAdapter.setItems(getDevicesForCategory(category));
+    }
+
+    private ArrayList<Device> getDevicesForCategory(Category category) {
+        if(category.getDeviceType() == null ){
+            return DataContainer.getInstance().getDevices();
+        } else {
+            return DataContainer.getInstance().getDevicesForCategory(category);
+        }
     }
 }

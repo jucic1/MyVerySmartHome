@@ -1,42 +1,33 @@
 package com.example.myverysmarthome.model;
 
-import com.example.myverysmarthome.DataContainer;
-import com.example.myverysmarthome.model.devices.Device;
+import com.example.myverysmarthome.model.devices.DeviceType;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.UUID;
 
 public class Category implements Serializable {
-    String id;
-    String title;
-    int drawableId;
-    ArrayList<String> devicesInCategory;
+    private String title;
+    private int drawableId;
+    private DeviceType deviceType;
+    private String uuid;
 
-    public Category(String title, ArrayList<String> bedroomDevices, int drawableId) {
-        this.id = UUID.randomUUID().toString();
+    public Category(String title, int drawableId, DeviceType deviceType) {
         this.title = title;
-        this.devicesInCategory = bedroomDevices;
         this.drawableId = drawableId;
-    }
-    public String getId() {
-        return id;
+        this.deviceType = deviceType;
+        this.uuid = UUID.randomUUID().toString();
     }
 
-    public void addDevice(String deviceUuid) {
-        devicesInCategory.add(deviceUuid);
+    public String getUuid() {
+        return uuid;
+    }
+
+    public DeviceType getDeviceType() {
+        return deviceType;
     }
 
     public String getTitle() {
         return title;
-    }
-
-    public ArrayList<Device> getDevicesInGroup() {
-        ArrayList<Device> devices = new ArrayList<>();
-        for (String uuid : devicesInCategory) {
-            devices.add(DataContainer.getInstance().getDevice(uuid));
-        }
-        return devices;
     }
 
     public int getDrawableId() {

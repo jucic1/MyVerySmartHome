@@ -53,6 +53,10 @@ public class ListDevicesAdapter extends RecyclerView.Adapter<ListDevicesAdapter.
         return allDevices.size();
     }
 
+    public void refresh() {
+        notifyDataSetChanged();
+    }
+
     class AllDevicesViewHolder extends RecyclerView.ViewHolder {
         TextView nameTextView;
         TextView statusTextView;
@@ -68,7 +72,8 @@ public class ListDevicesAdapter extends RecyclerView.Adapter<ListDevicesAdapter.
         void bind(Device device, ListDevicesCallBack listDevicesCallBack) {
             this.nameTextView.setText(device.getName());
             this.statusTextView.setText(device.getValue().toString());
-            Drawable drawable = itemView.getContext().getResources().getDrawable(device.getDrawableId(),itemView.getContext().getTheme());
+            int drawableId = DataContainer.getInstance().getCategoryForDevice(device).getDrawableId();
+            Drawable drawable = itemView.getContext().getResources().getDrawable(drawableId,itemView.getContext().getTheme());
             this.deviceImage.setImageDrawable(drawable);
             statusTextView.setOnClickListener(view -> {
                 listDevicesCallBack.onItemClick(device);

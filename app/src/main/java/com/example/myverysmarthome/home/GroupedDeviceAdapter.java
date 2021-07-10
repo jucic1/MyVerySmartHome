@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myverysmarthome.DataContainer;
 import com.example.myverysmarthome.R;
 import com.example.myverysmarthome.model.devices.Camera;
 import com.example.myverysmarthome.model.devices.Device;
@@ -69,7 +70,8 @@ public class GroupedDeviceAdapter extends RecyclerView.Adapter<GroupedDeviceAdap
 
         public void bind(Device item, GroupedDeviceCallBack itemCallback) {
             this.nameTextView.setText(item.getName());
-            Drawable drawable = itemView.getContext().getResources().getDrawable(item.getDrawableId(),itemView.getContext().getTheme());
+            int drawableId = DataContainer.getInstance().getCategoryForDevice(item).getDrawableId();
+            Drawable drawable = itemView.getContext().getResources().getDrawable(drawableId,itemView.getContext().getTheme());
             this.deviceImage.setImageDrawable(drawable);
             if (item instanceof Light || item instanceof Camera || item instanceof Plug) {
                 boolean boolStatus = (boolean) item.getValue();

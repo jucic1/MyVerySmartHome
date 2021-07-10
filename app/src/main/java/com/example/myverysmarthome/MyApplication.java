@@ -43,32 +43,14 @@ public class MyApplication extends Application {
         gson = new Gson();
         SharedPreferences sharedPreferences = getApplicationContext().getSharedPreferences("PRIMITIVE", Context.MODE_PRIVATE);
         if (!sharedPreferences.getBoolean("LAUNCH", false)) {
-            ArrayList<Category> newCategories = new ArrayList<>();
-            newCategories.add(new Category("Swiatło", new ArrayList<>(), R.drawable.lightbulb));
-            newCategories.add(new Category("Termostat", new ArrayList<>(), R.drawable.temperature));
-            newCategories.add(new Category("Kamera", new ArrayList<>(), R.drawable.camera));
-            newCategories.add(new Category("Włącznik", new ArrayList<>(), R.drawable.plug));
-            newCategories.add(new Category("Wiatrak", new ArrayList<>(), R.drawable.fan));
-            newCategories.add(new Category("Wszystko", new ArrayList<>(), R.drawable.all));
-            String json = gson.toJson(newCategories);
-            writeToFile("categories.txt", json);
             writeToFile("groups.txt", "");
 
             for (DeviceType deviceType : DeviceType.values()) {
                 writeToFile(deviceType.toString().toLowerCase() + ".txt", "");
             }
-
             SharedPreferences.Editor edit = sharedPreferences.edit();
             edit.putBoolean("LAUNCH", true);
             edit.apply();
-        }
-
-        String fromJsonCategories = readFromFile("categories.txt");
-        Type listTypeCategory = new TypeToken<ArrayList<Category>>() {
-        }.getType();
-        ArrayList<Category> categories = gson.fromJson(fromJsonCategories, listTypeCategory);
-        if (categories == null) {
-            categories = new ArrayList<>();
         }
 
         String fromJsonGroups = readFromFile("groups.txt");
@@ -112,7 +94,6 @@ public class MyApplication extends Application {
                 allDevices.addAll(devices);
             }
         }
-        DataContainer.getInstance().setCategories(categories);
         DataContainer.getInstance().setDevices(allDevices);
         DataContainer.getInstance().setGroups(groups);
     }

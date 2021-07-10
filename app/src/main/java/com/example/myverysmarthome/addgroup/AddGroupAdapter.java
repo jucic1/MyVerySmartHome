@@ -64,7 +64,8 @@ public class AddGroupAdapter extends RecyclerView.Adapter<AddGroupAdapter.AddGro
 
         void bind(Device device, AddGroupCallBack addGroupCallBack) {
             this.nameTextView.setText(device.getName());
-            Drawable drawable = itemView.getContext().getResources().getDrawable(device.getDrawableId(),itemView.getContext().getTheme());
+            int drawableId = DataContainer.getInstance().getCategoryForDevice(device).getDrawableId();
+            Drawable drawable = itemView.getContext().getResources().getDrawable(drawableId,itemView.getContext().getTheme());
             deviceImage.setImageDrawable(drawable);
 
             deviceCheckbox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

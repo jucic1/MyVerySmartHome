@@ -53,9 +53,6 @@ public class HomeActivity extends AppCompatActivity implements ConfigureHubDevic
     protected void onPause() {
         super.onPause();
         Gson gson = new Gson();
-        ArrayList<Category> categories = DataContainer.getInstance().getCategories();
-        String jsonCategories = gson.toJson(categories);
-        writeToFile("categories.txt", jsonCategories);
 
         ArrayList<Group> groups = DataContainer.getInstance().getGroups();
         String jsonGroups = gson.toJson(groups);
