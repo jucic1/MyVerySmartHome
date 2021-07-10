@@ -79,7 +79,7 @@ public class GroupedDeviceAdapter extends RecyclerView.Adapter<GroupedDeviceAdap
                     this.container.setBackground(ContextCompat.getDrawable(itemView.getContext(),R.drawable.rounded_corners_light_gray));
                 }
             } else {
-                this.container.setBackground(ContextCompat.getDrawable(itemView.getContext(),R.drawable.rounded_corners_light_gray));
+                this.container.setBackground(ContextCompat.getDrawable(itemView.getContext(),R.drawable.rounded_corners_gray));
             }
             this.statusTextView.setText(item.getValue().toString());
             itemView.setOnClickListener(view -> itemCallback.onItemClick(item));

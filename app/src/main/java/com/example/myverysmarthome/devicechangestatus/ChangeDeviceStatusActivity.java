@@ -141,12 +141,12 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
             public void onValueChange(Slider slider, float value, boolean fromUser) {
                 DataContainer.getInstance().getDevice(device.getUuid()).setValue(value);
                 Float newStatus = (Float) DataContainer.getInstance().getDevice(device.getUuid()).getValue();
+                newStatus = Float.valueOf(String.format("%.2f", newStatus));
                 activityChangeDeviceStatusBinding.deviceStatusText.setText(newStatus.toString());
                 changeDeviceStatusViewModel.sendStatusChange(device.getName(), newStatus.toString(), "float", sharedPreferences);
             }
         });
         activityChangeDeviceStatusBinding.container.addView(slider, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-
     }
 
     private void addSwitch(Device device) {

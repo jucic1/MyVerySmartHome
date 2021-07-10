@@ -96,9 +96,7 @@ public class HomeActivity extends AppCompatActivity implements ConfigureHubDevic
         });
         homeViewModel.errorMessage.observe(this, errorMessage -> {
             Snackbar.make(activityHomeBinding.getRoot(),errorMessage, Snackbar.LENGTH_LONG).show();
-//            activityCreateGroupBinding.nameLayout.setError(validationMessage);
         });
-
 
         RecyclerView recyclerViewDeviceMenu = activityHomeBinding.deviceMenuRecyclerView;
 

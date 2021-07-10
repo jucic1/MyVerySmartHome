@@ -67,7 +67,6 @@
             android:src="@drawable/plus" />
     </RelativeLayout>
 
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/deviceMenuRecyclerView"
         android:layout_width="match_parent"
