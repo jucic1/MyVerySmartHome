@@ -79,9 +79,12 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/groupsRecyclerView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="450dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/groupsHeading" />
+        app:layout_constraintTop_toBottomOf="@id/groupsHeading"
+        android:paddingBottom="20dp"
+
+        alignParentBottom="true"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

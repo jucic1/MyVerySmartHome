@@ -132,8 +132,8 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
     private void addSlider(Device device) {
         Slider slider = new Slider(this);
         slider.setValueFrom(15);
-        slider.setValueTo(((Thermostat) device).getValue());
-        slider.setValue(20);
+        slider.setValueTo(30);
+        slider.setValue(((Thermostat) device).getValue());
         slider.setScaleX((float) 0.5);
         slider.setScaleY(2);
         slider.addOnChangeListener(new Slider.OnChangeListener() {

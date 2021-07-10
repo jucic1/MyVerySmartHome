@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingStart="16dp"
@@ -75,19 +75,21 @@
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/listDevicesRecyclerView"/>
-
-        <Button
-            android:text="Stwórz grupę"
-            android:textSize="18dp"
-            android:padding="8dp"
-            android:layout_marginTop="24dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/white"
-            android:textColor="@color/orange"
-            android:id="@+id/createButton"/>
-
-
+            android:id="@+id/listDevicesRecyclerView"
+            android:paddingBottom="70dp"/>
     </LinearLayout>
-</LinearLayout>
+
+    <Button
+        android:text="Stwórz grupę"
+        android:textSize="18dp"
+        android:padding="8dp"
+        android:layout_marginTop="24dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/orange"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp"
+        android:id="@+id/createButton"/>
+
+</RelativeLayout>
