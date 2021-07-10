@@ -6,6 +6,7 @@ import com.example.myverysmarthome.model.devices.Device;
 import com.example.myverysmarthome.model.devices.DeviceType;
 import com.example.myverysmarthome.model.Group;
 import com.example.myverysmarthome.model.devices.Fan;
+import com.example.myverysmarthome.model.devices.Level;
 import com.example.myverysmarthome.model.devices.Light;
 import com.example.myverysmarthome.model.devices.Plug;
 import com.example.myverysmarthome.model.devices.Thermostat;
@@ -25,10 +26,10 @@ public final class DataContainer {
         categories = new ArrayList<>();
         categories.add(new Category("Światło", R.drawable.lightbulb, DeviceType.LIGHT));
         categories.add(new Category("Termostat", R.drawable.temperature, DeviceType.THERMOSTAT));
-        categories.add(new Category("Kamera",  R.drawable.camera, DeviceType.CAMERA));
+        categories.add(new Category("Kamera", R.drawable.camera, DeviceType.CAMERA));
         categories.add(new Category("Włącznik", R.drawable.plug, DeviceType.PLUG));
-        categories.add(new Category("Wiatrak",  R.drawable.fan, DeviceType.FAN));
-        categories.add(new Category("Wszystko",  R.drawable.all, null));
+        categories.add(new Category("Wiatrak", R.drawable.fan, DeviceType.FAN));
+        categories.add(new Category("Wszystko", R.drawable.all, null));
     }
 
     public ArrayList<Device> getDevices() {
@@ -37,8 +38,8 @@ public final class DataContainer {
 
     public ArrayList<Device> getDevicesOfType(DeviceType deviceType) {
         ArrayList<Device> result = new ArrayList<>();
-        for(Device device: devices) {
-            if(device.getClass().getSimpleName().toLowerCase().equals(deviceType.name().toLowerCase())) {
+        for (Device device : devices) {
+            if (device.getClass().getSimpleName().toLowerCase().equals(deviceType.name().toLowerCase())) {
                 result.add(device);
             }
         }
@@ -79,7 +80,7 @@ public final class DataContainer {
 
     public void removeDevice(String uuid) {
         int indexToRemove = -1;
-        for (int i = 0; i< devices.size(); i++) {
+        for (int i = 0; i < devices.size(); i++) {
             if (devices.get(i).getUuid().equals(uuid)) {
                 indexToRemove = i;
             }
@@ -88,8 +89,8 @@ public final class DataContainer {
     }
 
     public Category getCategoryForDevice(Device device) {
-        for(Category category: categories) {
-            if(category.getUuid().equals(device.getCategoryId())) {
+        for (Category category : categories) {
+            if (category.getUuid().equals(device.getCategoryId())) {
                 return category;
             }
         }
@@ -98,8 +99,8 @@ public final class DataContainer {
 
     public ArrayList<Device> getDevicesForCategory(Category category) {
         ArrayList<Device> result = new ArrayList<>();
-        for(Device device : devices) {
-            if(device.getCategoryId().equals(category.getUuid())) {
+        for (Device device : devices) {
+            if (device.getCategoryId().equals(category.getUuid())) {
                 result.add(device);
             }
         }
@@ -117,23 +118,28 @@ public final class DataContainer {
         return result;
     }
 
-    public Device createDevice(String name, Category category) {
+    public Device createDevice(String name, Category category, String value) {
         Device newDevice;
         switch (category.getDeviceType()) {
             case LIGHT:
                 newDevice = new Light(name, category.getUuid());
+                newDevice.setValue(Boolean.valueOf(value));
                 break;
             case THERMOSTAT:
                 newDevice = new Thermostat(name, category.getUuid());
+                newDevice.setValue(Float.valueOf(value));
                 break;
             case PLUG:
                 newDevice = new Plug(name, category.getUuid());
+                newDevice.setValue(Boolean.valueOf(value));
                 break;
             case CAMERA:
                 newDevice = new Camera(name, category.getUuid());
+                newDevice.setValue(Boolean.valueOf(value));
                 break;
             case FAN:
                 newDevice = new Fan(name, category.getUuid());
+                newDevice.setValue(Level.valueOf(value));
                 break;
             default:
                 throw new IllegalStateException();

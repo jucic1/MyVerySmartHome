@@ -13,6 +13,7 @@ public class ConfigureDeviceViewModel extends ViewModel {
     MutableLiveData<String> snackBarMessage = new MutableLiveData<>();
     MutableLiveData<Boolean> configureDevice = new MutableLiveData<>(false);
     MutableLiveData<String> name = new MutableLiveData<>();
+    MutableLiveData<String> status = new MutableLiveData<>();
     MutableLiveData<Category> category = new MutableLiveData<>();
 
     void configureDevice(String name) {
@@ -22,7 +23,7 @@ public class ConfigureDeviceViewModel extends ViewModel {
             snackBarMessage.setValue("Urządzenie musi zostać przypisane do kategorii");
         } else {
             if (isNameUnique(name)) {
-                DataContainer.getInstance().createDevice(name, category.getValue());
+                DataContainer.getInstance().createDevice(name, category.getValue(), status.getValue());
                 configureDevice.setValue(true);
             } else {
                 deviceNameValidation.setValue("Urządzenie o takiej nazwie już istnieje");
@@ -39,6 +40,10 @@ public class ConfigureDeviceViewModel extends ViewModel {
         this.category.setValue(category);
     }
 
+    public void setCurrentStatus(String value) {
+        this.status.setValue(value);
+    }
+
     private boolean isNameUnique(String name) {
         for (Device device : DataContainer.getInstance().devices) {
             if (device.getName().equals(name)) {
@@ -47,4 +52,6 @@ public class ConfigureDeviceViewModel extends ViewModel {
         }
         return true;
     }
+
+
 }

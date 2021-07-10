@@ -19,8 +19,7 @@ public class ChangeDeviceStatusViewModel extends ViewModel {
     public void sendStatusChange(String deviceName, String status, String type, SharedPreferences sharedPreferences) {
         String message = "[" + deviceName + "][" + status + "][" + type + "]";
         String phoneNumber = sharedPreferences.getString("GSM_MODULE_PHONE_NUMBER", null);
-        boolean result = sendSMS(phoneNumber, message);
-        if(result){
+        if(sendSMS(phoneNumber, message)){
             feedback.setValue("Wiadomość o treści \"" + message + "\" została wysłana na numer " + phoneNumber);
         }else {
             feedback.setValue("Wysłanie wiadomości się nie powiodło");
