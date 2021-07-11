@@ -33,6 +33,7 @@ public class AddGroupActivity extends AppCompatActivity {
             public void onAddDeviceItem(Device item) {
                 addGroupViewModel.addDeviceToGroup(item);
             }
+
             @Override
             public void onRemoveDeviceItem(Device item) {
                 addGroupViewModel.removeDeviceFromGroup(item);
@@ -42,19 +43,19 @@ public class AddGroupActivity extends AppCompatActivity {
         recyclerViewAllDevices.setAdapter(addGroupAdapter);
 
         addGroupViewModel.groupNameValidation.observe(this, validationMessage -> {
-            activityCreateGroupBinding.nameLayout.setError(validationMessage);
+            Snackbar.make(activityCreateGroupBinding.getRoot(), validationMessage, Snackbar.LENGTH_LONG).show();
         });
 
         addGroupViewModel.groupNameEmptyValidation.observe(this, validationMessage -> {
-            Snackbar.make(activityCreateGroupBinding.getRoot(),validationMessage, Snackbar.LENGTH_LONG).show();
+            Snackbar.make(activityCreateGroupBinding.getRoot(), validationMessage, Snackbar.LENGTH_LONG).show();
         });
 
         addGroupViewModel.selectedDevicesValidation.observe(this, errorMessage -> {
-            Snackbar.make(activityCreateGroupBinding.getRoot(),errorMessage, Snackbar.LENGTH_LONG).show();
+            Snackbar.make(activityCreateGroupBinding.getRoot(), errorMessage, Snackbar.LENGTH_LONG).show();
         });
 
         addGroupViewModel.createGroupSuccess.observe(this, createGroup -> {
-            if(createGroup) {
+            if (createGroup) {
                 finish();
             }
         });

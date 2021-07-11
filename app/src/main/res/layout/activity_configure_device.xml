@@ -54,6 +54,9 @@
                     android:layout_weight="3"
                     android:id="@+id/nameLayout"
                     app:boxStrokeColor="@color/orange"
+                    android:theme="@style/EditTextTheme"
+                    android:backgroundTint="@color/orange"
+                    android:color="@color/orange"
                     android:textColorHint="@color/orange">
 
                     <com.google.android.material.textfield.TextInputEditText
@@ -61,8 +64,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="text"
+                        android:theme="@style/EditTextTheme"
+                        android:color="@color/orange"
                         android:textColor="@color/white"
-                        android:hint="Podaj unikatową nazwę"
                         android:id="@+id/nameInput" />
                 </com.google.android.material.textfield.TextInputLayout>
 

@@ -52,7 +52,7 @@ public class ConfigureDeviceActivity extends AppCompatActivity {
         addCategoryRadioButtons();
 
         configureDeviceViewModel.deviceNameValidation.observe(this, validationMessage -> {
-            activityConfigureDeviceBinding.nameLayout.setError(validationMessage);
+            Snackbar.make(activityConfigureDeviceBinding.getRoot(), validationMessage, Snackbar.LENGTH_LONG).show();
         });
 
         configureDeviceViewModel.configureDevice.observe(this, configureDevice -> {
