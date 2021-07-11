@@ -170,7 +170,12 @@ public class ConfigureDeviceActivity extends AppCompatActivity {
         dropdown.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parentView, View selectedItemView, int position, long id) {
-                configureDeviceViewModel.setCurrentStatus(parentView.getItemAtPosition(position).toString());
+                String selected = parentView.getItemAtPosition(position).toString();
+                if (possibleValues.size() > 2) {
+                    configureDeviceViewModel.setCurrentStatus(Level.toEnglish(selected).toString());
+                } else {
+                    configureDeviceViewModel.setCurrentStatus(selected);
+                }
             }
 
             @Override

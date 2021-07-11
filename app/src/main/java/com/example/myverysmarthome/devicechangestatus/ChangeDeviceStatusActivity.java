@@ -124,7 +124,7 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
                 Level newLevel = Level.toEnglish((String) checkedRadioButton.getText());
                 DataContainer.getInstance().getDevice(device.getUuid()).setValue(newLevel);
                 activityChangeDeviceStatusBinding.deviceStatusText.setText(checkedRadioButton.getText());
-                changeDeviceStatusViewModel.sendStatusChange(device.getName(), newLevel.toString().toLowerCase(), "set_intensity", sharedPreferences);
+                changeDeviceStatusViewModel.sendStatusChange(device.getName(), "set_intensity", newLevel.toString().toLowerCase(), sharedPreferences);
             }
         });
         activityChangeDeviceStatusBinding.container.addView(radioGroup, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
@@ -142,7 +142,7 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
             DataContainer.getInstance().getDevice(device.getUuid()).setValue(newStatus);
             String newStringStatus = DataContainer.getInstance().getDevice(device.getUuid()).getValue().toString();
             activityChangeDeviceStatusBinding.deviceStatusText.setText(newStringStatus);
-            changeDeviceStatusViewModel.sendStatusChange(device.getName(), newStringStatus, "set_temperature", sharedPreferences);
+            changeDeviceStatusViewModel.sendStatusChange(device.getName(), "set_temperature", newStringStatus, sharedPreferences);
         });
         activityChangeDeviceStatusBinding.container.addView(slider, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
     }
@@ -157,7 +157,7 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
             DataContainer.getInstance().getDevice(device.getUuid()).setValue(status1);
             Boolean newStatus = (Boolean) DataContainer.getInstance().getDevice(device.getUuid()).getValue();
             activityChangeDeviceStatusBinding.deviceStatusText.setText(newStatus.toString());
-            changeDeviceStatusViewModel.sendStatusChange(device.getName(), newStatus.toString(), "activate", sharedPreferences);
+            changeDeviceStatusViewModel.sendStatusChange(device.getName(), "activate", newStatus.toString(), sharedPreferences);
         });
         activityChangeDeviceStatusBinding.container.addView(someSwitch, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
     }

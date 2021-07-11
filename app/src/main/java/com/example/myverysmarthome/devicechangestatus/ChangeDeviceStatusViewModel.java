@@ -16,8 +16,8 @@ public class ChangeDeviceStatusViewModel extends ViewModel {
         DataContainer.getInstance().removeDevice(device.getUuid());
     }
 
-    public void sendStatusChange(String deviceName, String status, String type, SharedPreferences sharedPreferences) {
-        String message = "[" + deviceName + "][" + status + "][" + type + "]";
+    public void sendStatusChange(String deviceName, String method, String value, SharedPreferences sharedPreferences) {
+        String message = "[" + deviceName + "][" + method + "][" + value + "]";
         String phoneNumber = sharedPreferences.getString("GSM_MODULE_PHONE_NUMBER", null);
         if(sendSMS(phoneNumber, message)){
             feedback.setValue("Wiadomość o treści \"" + message + "\" została wysłana na numer " + phoneNumber);
