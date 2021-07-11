@@ -116,14 +116,16 @@ public class ConfigureDeviceActivity extends AppCompatActivity {
             case FAN:
                 return createStatusDropdown(Level.getAllInPolish());
             case THERMOSTAT:
-                return createEditText(15, 30);
+                return createEditText(15, 30, 20);
             default:
                 throw new IllegalArgumentException();
         }
     }
 
-    private View createEditText(int minValue, int maxValue) {
+    private View createEditText(int minValue, int maxValue, int defaultTemp) {
         EditText input = new EditText(this);
+        configureDeviceViewModel.setCurrentStatus(String.valueOf(defaultTemp));
+        input.setText(String.valueOf(defaultTemp));
         input.setInputType(InputType.TYPE_CLASS_NUMBER);
         int[][] states = new int[][]{
                 new int[]{-android.R.attr.state_focused},
@@ -139,14 +141,13 @@ public class ConfigureDeviceActivity extends AppCompatActivity {
         input.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
             }
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (!charSequence.toString().equals("")) {
                     Float temp = Float.valueOf(charSequence.toString());
-                    if (temp < 15.0 || temp > 30.0) {
+                    if (temp < minValue || temp > maxValue) {
                         Snackbar.make(activityConfigureDeviceBinding.getRoot(), "Temperatura musi znajdować się w przedziale od 15\u2103 do 30\u2103", Snackbar.LENGTH_LONG).show();
                     } else {
                         configureDeviceViewModel.setCurrentStatus(temp.toString());

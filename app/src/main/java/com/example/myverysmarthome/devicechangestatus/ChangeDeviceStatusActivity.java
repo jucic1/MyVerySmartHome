@@ -138,7 +138,7 @@ public class ChangeDeviceStatusActivity extends AppCompatActivity {
         slider.setScaleX((float) 0.5);
         slider.setScaleY(2);
         slider.addOnChangeListener((slider1, value, fromUser) -> {
-            DataContainer.getInstance().getDevice(device.getUuid()).setValue(value);
+            DataContainer.getInstance().getDevice(device.getUuid()).setValue(String.format("%.2f", value));
             Float newStatus = (Float) DataContainer.getInstance().getDevice(device.getUuid()).getValue();
             newStatus = Float.valueOf(String.format("%.2f", newStatus));
             activityChangeDeviceStatusBinding.deviceStatusText.setText(newStatus.toString());
