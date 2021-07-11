@@ -12,6 +12,7 @@ import java.util.ArrayList;
 public class AddGroupViewModel extends ViewModel {
 
     MutableLiveData<String> groupNameValidation = new MutableLiveData<>();
+    MutableLiveData<String> groupNameEmptyValidation = new MutableLiveData<>();
     MutableLiveData<String> selectedDevicesValidation = new MutableLiveData<>();
     MutableLiveData<Boolean> createGroupSuccess = new MutableLiveData<>(false);
 
@@ -39,7 +40,7 @@ public class AddGroupViewModel extends ViewModel {
 
     private boolean isSelected(String name) {
         if (name.isEmpty()) {
-            groupNameValidation.setValue("Nazwa grupy nie może być pusta");
+            groupNameEmptyValidation.setValue("Nazwa grupy nie może być pusta");
             return false;
         }
         if (groupDevices.isEmpty()) {

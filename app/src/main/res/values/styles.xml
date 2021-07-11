@@ -23,4 +23,15 @@
         <item name="errorTextAppearance">@style/TextAppearance.Design.Error</item>
     </style>
 
+<!--    <style name="Widget.App.Slider" parent="Widget.MaterialComponents.Slider">-->
+<!--        <item name="materialThemeOverlay">@style/ThemeOverlay.App.Slider</item>-->
+<!--        <item name="color-->
+<!--    </style>-->
+
+    <style name="ThemeOverlay.App.Slider" parent="">
+        <item name="colorPrimary">@color/orange</item>
+        <item name="colorOnPrimary">@color/opaqueOrange</item>
+        <item name="colorOnSurface">@color/white</item>
+    </style>
+
 </resources>

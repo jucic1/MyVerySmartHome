@@ -45,6 +45,10 @@ public class AddGroupActivity extends AppCompatActivity {
             activityCreateGroupBinding.nameLayout.setError(validationMessage);
         });
 
+        addGroupViewModel.groupNameEmptyValidation.observe(this, validationMessage -> {
+            Snackbar.make(activityCreateGroupBinding.getRoot(),validationMessage, Snackbar.LENGTH_LONG).show();
+        });
+
         addGroupViewModel.selectedDevicesValidation.observe(this, errorMessage -> {
             Snackbar.make(activityCreateGroupBinding.getRoot(),errorMessage, Snackbar.LENGTH_LONG).show();
         });
